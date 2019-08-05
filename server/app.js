@@ -35,12 +35,12 @@ const port = process.env.PORT || 8001;
 //routes go here
 const inventory = require("./routes/inventory");
 const auth = require('./routes/auth');
-const inventoryCategory = require('./routes/inventorycategories');
+
 
 //plug the routes in.
 app.use('/inventory', inventory);
 app.use('/auth', auth);
-app.use('/inventorycategory',inventoryCategory);
+
 
 app.get('/',(req,res,next)=>{
     res.send("Welcome to scoutsgeared backend");
