@@ -12,7 +12,7 @@
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn
-        v-if="!isLogged"
+        v-if="!checkLogin"
         text
         router
         to="/login"
@@ -20,7 +20,16 @@
         <span class="mr-2">Login</span>
       </v-btn>
       <v-btn
-        v-if="isLogged"
+        v-if="!checkLogin"
+        text
+        router
+        to="/register"
+        
+      >
+        <span  class="mr-2">Register</span>
+      </v-btn>
+      <v-btn
+        v-if="checkLogin"
         text
         @click="logout"
         
@@ -38,6 +47,14 @@ export default {
         }
     },
     methods:{
+      getState:function(){
+        if(this.$store.state.authStatus !== ""){
+          this.$store.state.isLoggedIn = true;
+          //alert(this.$store.state.authStatus);
+        }else{
+          this.$store.state.isLoggedIn = false;
+        }
+      },
         logout: function(){
             this.$store.state.isLoggedIn = false;
             this.$store.dispatch("logout")
@@ -50,12 +67,21 @@ export default {
         }
     },
     computed:{
-        isLogged: function (){
-            return this.isLoggedIn;
+
+      checkLogin: function(){
+        return this.$store.getters.isLoggedIn;
+      },
+      checkAdmin: function(){
+        if(this.$store.getters.isAdmin){
+          return true;
+        }else{
+          return false;
         }
+      }
     },
     mounted(){
         this.isLoggedIn = this.$store.getters.isLoggedIn
+        this.getState
     }
 }
 </script>
