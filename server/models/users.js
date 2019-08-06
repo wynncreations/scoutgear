@@ -9,7 +9,19 @@ var UserSchema = new Schema({
     lastname: String,
     account_type: String,
     created_at: Date,
-    updated_at: Date
+    updated_at: Date,
+    unit_ID: {
+        type: mongoose.Schema.Types.ObjectId
+    },
+    position:{
+        type: String,
+    },
+    age: Number,
+    birthday: Date,
+    parentAccount: {
+        type: String
+    }
+
 });
 
 // Compile model from schema

@@ -29,7 +29,12 @@ router.post('/register',(req,res,next)=>{
                         password: hash,
                         created_at: Date(),
                         updated_at: Date(),
-                        account_type: req.body.account_type || 'Customer'
+                        account_type: req.body.account_type || 'Parent',
+                        unit_ID: req.body.unit_ID,
+                        position: req.body.position || 'None',
+                        age: req.body.age,
+                        birthday: req.body.birthday,
+                        parentAccount: req.body.parentAccount || 'None'
                     });
                     user.save((err)=>{
                         if(err){

@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 // Define schema
 var Schema = mongoose.Schema;
 
-var InventorySchema = new Schema({
+var UnitSchema = new Schema({
     unit_type: {
         type: String,
         unique: false,
@@ -12,14 +12,46 @@ var InventorySchema = new Schema({
         type: Number,
         required: true,
     },
-    council: String,
-    district: String,
-    address1: String,
-    address2: String,
-    city: String,
-    state: Number,
-    zip: String,
-    phone: String,
+    council: {
+        type: String,
+        unique: false,
+        required: true
+    },
+    district: {
+        type: String,
+        unique: false,
+        required: true
+    },
+    address1: {
+        type: String,
+        unique: false,
+        required: true
+    },
+    address2: {
+        type: String,
+        unique: false,
+        required: false
+    },
+    city: {
+        type: String,
+        unique: false,
+        required: true
+    },
+    state: {
+        type: String,
+        unique: false,
+        required: true
+    },
+    zip: {
+        type: Number,
+        unique: false,
+        required: true
+    },
+    phone: {
+        type: String,
+        unique: false,
+        required: true
+    },
     created_at: {
         type: Date,
         default: Date.now()
@@ -28,6 +60,6 @@ var InventorySchema = new Schema({
 });
 
 // Compile model from schema
-var InventoryModel = mongoose.model('Inventory', InventorySchema);
+var UnitModel = mongoose.model('Unit', UnitSchema);
 
-module.exports = InventoryModel;
+module.exports = UnitModel;

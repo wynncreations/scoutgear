@@ -35,11 +35,13 @@ const port = process.env.PORT || 8001;
 //routes go here
 const inventory = require("./routes/inventory");
 const auth = require('./routes/auth');
+const unit = require('./routes/unit');
 
 
 //plug the routes in.
 app.use('/inventory', inventory);
 app.use('/auth', auth);
+app.use('/unit', unit);
 
 
 app.get('/',(req,res,next)=>{

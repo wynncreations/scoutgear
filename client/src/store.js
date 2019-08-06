@@ -15,7 +15,8 @@ export default new Vuex.Store({
         token: localStorage.getItem("token") || "",
         isDev: false,
         firstLook: false,
-        successMessage: ""
+        successMessage: "",
+        haskids: false
     },
     plugins: [
         createPersistedState({
@@ -47,6 +48,7 @@ export default new Vuex.Store({
             state.token = "";
             state.me = {};
             state.isLoggedIn = false;
+            state.haskids = false;
         },
         registerResponse(state, responseStatus, user) {
             state.registerResponseStatus = responseStatus;
@@ -61,7 +63,8 @@ export default new Vuex.Store({
         isAdmin: state => state.me.account_type === "Admin",
         authStatus: state => state.authStatus,
         registerResponseStatus: state => state.registerResponseStatus,
-        successMessage: state => state.successMessage
+        successMessage: state => state.successMessage,
+        haskids: state => state.haskids
     },
     actions: {
         getUpdatedMe({
