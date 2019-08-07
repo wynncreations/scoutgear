@@ -1,48 +1,60 @@
 <template>
-  <v-form v-model="valid">
-    <v-container>
-      <v-layout justify-center>  
-        <v-flex
-          xs12
-          md3
-        >
-         
-          <v-text-field
-            v-model="firstname"
-            label="First name"
-            required
-          ></v-text-field>
-
-          <v-text-field
-            v-model="lastname"
-            label="Last name"
-            required
-          ></v-text-field>
-
-          <v-text-field
-            v-model="email"
-            label="E-mail"
-            required
-          ></v-text-field>
-
-          <v-text-field
-            v-model="password"
-            label="Password"
-            type="password"
-            required
-          ></v-text-field>
-
-          <v-btn
-            right
-            color="primary"
-            @click="register"
+  <v-container fluid class="blue main">
+    
+      <v-container >
+        <v-layout justify-center>  
+          <v-flex
+            xs12
+            md4
           >
-            Submit
-          </v-btn>
-        </v-flex>        
-      </v-layout>
-    </v-container>
-  </v-form>
+            <v-card>
+              <v-card-title class="headline text-uppercase align-content-space-around">Register New Parent Account</v-card-title>
+              <v-card-text>
+                <v-form v-model="valid"   class="white"> 
+                  <v-text-field
+                    v-model="firstname"
+                    label="First name"
+                    required
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-model="lastname"
+                    label="Last name"
+                    required
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-model="email"
+                    label="E-mail"
+                    required
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-model="password"
+                    label="Password"
+                    type="password"
+                    required
+                  ></v-text-field>
+
+                  <v-btn
+                    right
+                    color="primary"
+                    @click="register"
+                  >
+                    Submit
+                  </v-btn>
+                </v-form>
+              </v-card-text>
+
+            </v-card>
+            
+          </v-flex>  
+
+        </v-layout>
+      </v-container>
+    
+  </v-container>
+  
 </template>
 
 

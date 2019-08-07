@@ -2,9 +2,16 @@ var mongoose = require('mongoose');
 // Define schema
 var Schema = mongoose.Schema;
 
-var UserSchema = new Schema({
-    username: {type: String, required: true, unique: true},
-    password: {type: String, required:true},
+var KidsSchema = new Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
     firstname: String,
     lastname: String,
     account_type: String,
@@ -14,13 +21,15 @@ var UserSchema = new Schema({
     unit_ID: {
         type: mongoose.Schema.Types.ObjectId
     },
-    position:{
+    position: {
         type: String,
-    }
+    },
+    age: Number,
+    birthday: Date
 
 });
 
 // Compile model from schema
-var UserModel = mongoose.model('User', UserSchema);
+var KidModel = mongoose.model('Kid', KidsSchema);
 
-module.exports =  UserModel;
+module.exports = KidModel;

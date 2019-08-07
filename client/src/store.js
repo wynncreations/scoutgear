@@ -16,7 +16,7 @@ export default new Vuex.Store({
         isDev: false,
         firstLook: false,
         successMessage: "",
-        haskids: false
+        kids: []
     },
     plugins: [
         createPersistedState({
@@ -31,6 +31,9 @@ export default new Vuex.Store({
     mutations: {
         updateMe(state, me) {
             state.me = me;
+        },
+        updateKids(state,kids){
+            state.kids = kids
         },
         userUsers(state, users) {
             state.users = users;
@@ -48,7 +51,7 @@ export default new Vuex.Store({
             state.token = "";
             state.me = {};
             state.isLoggedIn = false;
-            state.haskids = false;
+            state.kids = [];
         },
         registerResponse(state, responseStatus, user) {
             state.registerResponseStatus = responseStatus;
@@ -64,7 +67,7 @@ export default new Vuex.Store({
         authStatus: state => state.authStatus,
         registerResponseStatus: state => state.registerResponseStatus,
         successMessage: state => state.successMessage,
-        haskids: state => state.haskids
+        kids: state => state.kids
     },
     actions: {
         getUpdatedMe({
@@ -132,6 +135,19 @@ export default new Vuex.Store({
                 localStorage.removeItem("token");
                 resolve();
             });
+        },
+        getKids({commit}){
+            return new Promise((resolve,reject)=>{
+                fetch("auth/kids/"+this.$store.getters.me._id)
+                    .then(resp => resp.json())
+                    .then((resp) => {
+                        commit("updateKids", resp.kids)
+                    })
+                    .then(resolve())
+                    .catch(err => {
+                        reject(err);
+                    })
+            })
         }
     }
 });

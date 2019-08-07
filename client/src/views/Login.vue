@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container fluid class="blue main">
         <v-alert
             v-model="alert"
             dismissible

@@ -54,6 +54,16 @@ router.get('/:id',(req,res,next)=>{
     })
 });
 
+router.get('/', (req,res,next)=>{
+    Unit.find({},(err,units)=>{
+        if(err){
+            res.status(400).send(`Error finding units - ${err}`);
+        }else{
+            res.status(200).send({units:units});
+        }
+    })
+});
+
 
 
 

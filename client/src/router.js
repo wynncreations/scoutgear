@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import store from './store'
+import PickUnit from './views/PickUnit.vue'
 
 Vue.use(Router)
 
@@ -14,7 +15,10 @@ const router = new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      meta:{
+        requiresRegistration: true
+      }
     },
     {
       path: '/login',
@@ -30,7 +34,12 @@ const router = new Router({
       meta: {
         requiresLoggedOut: true
       }
+    },{
+      path: '/pickUnit',
+      name:'PickUnit',
+      component: PickUnit
     }
+
   ]
 })
 
@@ -44,6 +53,21 @@ router.beforeEach((to,from,next)=>{
       next('/');
     }
   }
+
+  if(to.matched.some(record=> record.meta.requiresRegistration)){
+    if(store.getters.me.unit_ID==='000000000000000000000000' && store.getters.isLoggedIn){
+      //default value for an account that hasn't yet been assigned to a Unit, we want to redirect these folks.
+      next('/pickUnit');
+    }else{
+      next();
+    }
+  }else{  
+    next();
+  }
+
+
+
+
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (store.getters.isLoggedIn) {
       next();
