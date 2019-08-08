@@ -84,6 +84,7 @@ export default new Vuex.Store({
         }, me) {
 
             return new Promise((resolve, reject) => {
+                //alert(JSON.stringify(me))
                 fetch("auth/login", {
                         method: "POST",
                         headers: {
@@ -93,6 +94,7 @@ export default new Vuex.Store({
                     })
                     .then(resp => resp.json())
                     .then(resp => {
+                        //alert(resp.me)
                         localStorage.setItem("token", resp.token);
                         commit("updateMe", resp.me);
                         commit("authSuccess", resp.token);
@@ -124,7 +126,6 @@ export default new Vuex.Store({
                         commit("authError", err);
                         reject(err);
                     })
-
             });
         },
         logout({

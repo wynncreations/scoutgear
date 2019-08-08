@@ -3,6 +3,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var UnitSchema = new Schema({
+    unit_name: {
+        type: String,
+        required: true
+    },
     unit_type: {
         type: String,
         unique: false,

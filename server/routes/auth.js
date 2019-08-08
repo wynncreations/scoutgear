@@ -7,16 +7,17 @@ router.post('/register',(req,res,next)=>{
     var password = req.body.password;
     //console.log(`Password  -  ${req.body.password}`);
     const saltRounds = 10;
-
+    //console.log(req.body);
     //check for existing username
     User.find({username: req.body.username},(err,user)=>{
+        
         if(err){
             console.log(`Error finding user, error - ${err}`);
         }
         if(user.username === req.body.username){
             res.send("User already exists.");
         }else{//no error,and user doesn't exist. Lets verify info and create the user.
-
+            //console.log(req.body);
             if(req.body.password === "" ||  req.body.password.length < 8){
                 res.send("Password required and must be over 8 characters or more.");
             }else{
@@ -72,6 +73,7 @@ router.post('/login',(req,res,next)=>{
                             res.send({token:token,me:user}));
                     });
                 }else{
+                
                     res.status('400').send("Password doesn't match")
                 }
             });
@@ -79,5 +81,43 @@ router.post('/login',(req,res,next)=>{
     });
 });
 
+router.get('/:id',(req,res,next)=>{
+    User.findOne({id:req.params.id},(err,user)=>{
+        if(err){
+            res.status(400).send(`Error - ${err}`);
+        }else{
+            
+            res.status(200).send({user:user});
+        }
+    });
+});
+
+router.post('/joinunit/',(req,res,next)=>{
+    let id = req.body.id
+    User.findById(req.body.id,(err,user)=>{
+        if(err){
+            res.status(400).send(`Error - ${err}`);
+        }else{
+            user.unit_ID = req.body.unit_id;
+            user.save((err)=>{
+                if(err){
+                    res.status(400).send(`Error - ${err}`);
+                }else{
+                    User.findById(
+                        id
+                    , (err, user) => {
+                        if (err) {
+                            res.status(400).send(`Error - ${err}`);
+                        } else {
+                            //console.log(user)
+                            res.status(201).send("Successfully Updated unit",{user:user});
+                        }
+                    })
+                }
+            });
+            
+        }
+    })
+});
 
 module.exports = router;

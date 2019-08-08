@@ -4,45 +4,21 @@
       <v-flex xs3 md3>
         <v-card>
           <v-card-title>
-            User Info
+            <span>Welcome</span>  <span> {{ me.firstname }} {{me.lastname}}</span>
           </v-card-title>
           <v-card-divider></v-card-divider>
           <v-card-text>
-            <span>{{ me }} {{ me.lastname }}</span><br>
+
 
             <span>Position:</span><span xs6> {{ me.position }}</span><br>
           </v-card-text>
         </v-card>
       </v-flex>
 
-
-      <v-flex v-if="me.unit_ID==='000000000000000000000000'" xs6 md3>
-        <v-card flat class="registerCard blue" >
-          <v-card-actions>
-            <v-btn
-              flat
-              router
-              to="/registerUnit"
-              
-            >
-              Register New Unit
-            </v-btn>
-            <v-spacer></v-spacer>
-            <v-btn
-              flat
-              router
-              to="/joinUnit"      
-            >
-              Join Unit
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-
       <v-flex v-if="isParent">
         <v-card v-for="kid in kids" :key="kid.id">
           <v-card-title>
-            User Info
+
           </v-card-title>
           <v-card-divider></v-card-divider>
           <v-card-text>

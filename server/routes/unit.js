@@ -7,6 +7,7 @@ router.post('/create',(req,res,next)=>{
     console.log(req.body.unit_number)
 
     var unit = new Unit({
+        unit_name: req.body.unit_name,
         unit_type: req.body.unit_type,
         unit_number: req.body.unit_number,
         council: req.body.council,

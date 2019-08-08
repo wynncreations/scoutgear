@@ -10,7 +10,7 @@
             <v-card>
               <v-card-title class="headline text-uppercase align-content-space-around">Register New Parent Account</v-card-title>
               <v-card-text>
-                <v-form v-model="valid"   class="white"> 
+                <v-form v-model="valid"  class="white"> 
                   <v-text-field
                     v-model="firstname"
                     label="First name"
@@ -52,6 +52,7 @@
 
         </v-layout>
       </v-container>
+
     
   </v-container>
   
@@ -61,23 +62,26 @@
 <script>
 export default {
     name: 'register',
-    data: ()=>({
+    data (){
+      return {
         valid:false,
         email:'',
         password:'',
         firstname:'',
         lastname:''
-    }),
+      }
+    },
     methods:{
         register: function() {
-            let data = {
-                firstName: this.firstName,
-                lastName: this.lastName,
+            let data1 = {
+                firstname: this.firstname,
+                lastname: this.lastname,
                 username: this.email,
-                password: this.password,
+                password: this.password
             };
+            alert(JSON.stringify(data1));
             this.$store
-                .dispatch("register", data)
+                .dispatch("register", data1)
                 .then(()=>{
                   this.$router.push("/");
                 });

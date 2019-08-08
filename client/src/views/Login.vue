@@ -53,6 +53,8 @@ export default {
     name:"login",
     data(){
         return {
+            username:'',
+            password:'',
             alert: false,
             errAlert: false
         }
@@ -64,7 +66,7 @@ export default {
         login:function (){
           let username = this.username;
           let password = this.password;
-          //alert(JSON.stringify(user));
+          //alert(JSON.stringify({username,password}));
           this.$store
           .dispatch("login",{username,password})
           .then(()=>{

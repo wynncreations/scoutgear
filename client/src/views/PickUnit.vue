@@ -5,17 +5,16 @@
                 <v-card>
                     <v-card-text>
                         <v-form>
-                            <v-select 
-                                label="Registered Units"
+                            <v-select
                                 :items="units"
+                                label="Registered Units"
                                 v-model="unit"
-                                :item-text="units.unit_type + ' ' + units.unit_number"
-                                :item-value="units._id"
-                            >
-
-                            </v-select>
+                                item-text="unit_name"
+                                item-value="_id"
+                                required
+                            ></v-select>
                             <v-btn
-                                
+                                @click="JoinUnit"
                             >
                                 Join Unit
                             </v-btn>
@@ -59,17 +58,39 @@ export default {
     data (){
         return{
             me:{},
+            unit:'',
             units:[]
         }
     },
     mounted(){
         this.me = this.$store.getters.me;
-        fetch('/units/')
+        fetch('/unit/')
         .then(resp => resp.json())
         .then(data => this.units=data.units)
     },
     methods:{
+        JoinUnit: function(){
+            let data = {
+                id:this.me._id,
+                unit_id:this.unit
+            }
 
+            //let id = this.me._id;
+
+            //alert (JSON.stringify(data))
+
+            fetch('/auth/joinunit',{
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+            })
+            .then(resp => resp.json())
+            .then(this.$store.dispatch("logout"))
+            //.then(this.$store.dispatch("resetUser",id))
+            .then(this.$router.push('/login'))
+        }
     },
     computed:{
 
