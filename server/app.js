@@ -37,6 +37,7 @@ const inventory = require("./routes/inventory");
 const auth = require('./routes/auth');
 const unit = require('./routes/unit');
 const kid = require('./routes/kid');
+const dens = require('./routes/dens');
 
 
 //plug the routes in.
@@ -44,6 +45,7 @@ app.use('/inventory', inventory);
 app.use('/auth', auth);
 app.use('/unit', unit);
 app.use('/kid', kid);
+app.use('/dens', dens);
 
 
 app.get('/',(req,res,next)=>{

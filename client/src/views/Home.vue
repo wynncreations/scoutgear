@@ -1,8 +1,11 @@
 <template>
   <v-container fluid class="blue main">
-    <v-layout v-if="isLoggedIn" >
-      <v-flex xs3 md3>
-        <v-card>
+    <v-layout v-if="isLoggedIn" justify-center>
+      <v-flex xs12 md4>
+
+      </v-flex>
+      <v-flex xs12 md3>
+        <v-card justify-center>
           <v-card-title>
             <span>Welcome</span>  <span> {{ me.firstname }} {{me.lastname}}</span>
           </v-card-title>

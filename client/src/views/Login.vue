@@ -70,7 +70,7 @@ export default {
           this.$store
           .dispatch("login",{username,password})
           .then(()=>{
-            this.$router.push('/');       
+            this.$router.push('/dashboard');       
           })
           .catch(err =>{
             this.errMessage = err

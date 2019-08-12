@@ -3,31 +3,43 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var KidsSchema = new Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true
+    firstname: {
+        type:String,
+        required: true
     },
-    password: {
+    lastname: {
         type: String,
         required: true
     },
-    firstname: String,
-    lastname: String,
-    account_type: String,
-    isParent: Boolean,
+    age: Number,
     created_at: Date,
     updated_at: Date,
     unit_ID: {
         type: mongoose.Schema.Types.ObjectId
     },
-    position: {
-        type: String,
+    subUnitID:{
+        type: mongoose.Schema.Types.ObjectId
     },
-    age: Number,
-    birthday: Date
+    subUnitType:{
+        type: String
+    },
+    parent:{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+    fundRaised:{
+        type: Number
+    },
+    profit:{
+        type: Number
+    },
+    scoutFund:{
+        type: Number
+    }
 
 });
+
+KidsSchema.index({"firstname":1,"lastname":1,"parent":1},{unique: true})
 
 // Compile model from schema
 var KidModel = mongoose.model('Kid', KidsSchema);

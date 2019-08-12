@@ -27,7 +27,31 @@
         
       >
         <span  class="mr-2">Register</span>
+      </v-btn>  
+
+      <v-btn
+        
+        text
+        @click="AddScout"
+      >
+        Add Scout
       </v-btn>
+
+
+
+
+
+
+      <v-btn
+        v-if="checkLogin"
+        text
+        router
+        to="/dashboard"
+        
+      >
+        <span  class="mr-2">Dashboard</span>
+      </v-btn>
+      
       <v-btn
         v-if="checkLogin"
         text
@@ -64,6 +88,9 @@ export default {
                 this.errMessage = err;
                 this.errStatus = true;
             })
+        },
+        AddScout: function(){
+          this.$store.dispatch("AddScout");
         }
     },
     computed:{
@@ -77,11 +104,15 @@ export default {
         }else{
           return false;
         }
+      },
+      isDashboard: function (){
+        return this.$store.getters.isDashboard;
       }
     },
     mounted(){
-        this.isLoggedIn = this.$store.getters.isLoggedIn
-        this.getState
+        this.isLoggedIn = this.$store.getters.isLoggedIn;
+        this.getState;
+        this.isDashboard();
     }
 }
 </script>

@@ -16,7 +16,9 @@ export default new Vuex.Store({
         isDev: false,
         firstLook: false,
         successMessage: "",
-        kids: []
+        kids: [],
+        AddScout: false,
+        isDashboard: false
     },
     plugins: [
         createPersistedState({
@@ -56,6 +58,12 @@ export default new Vuex.Store({
         registerResponse(state, responseStatus, user) {
             state.registerResponseStatus = responseStatus;
             state.me = user.username;
+        },
+        AddScout(state){
+            state.AddScout = !state.AddScout;
+        },
+        UpdateDashboard(state,status){
+            state.isDashboard = status;
         }
     },
     getters: {
@@ -67,7 +75,9 @@ export default new Vuex.Store({
         authStatus: state => state.authStatus,
         registerResponseStatus: state => state.registerResponseStatus,
         successMessage: state => state.successMessage,
-        kids: state => state.kids
+        kids: state => state.kids,
+        AddScout: state => state.AddScout,
+        isDashboard: state=> state.isDashboard
     },
     actions: {
         getUpdatedMe({
@@ -149,6 +159,22 @@ export default new Vuex.Store({
                         reject(err);
                     })
             })
+        },
+        AddScout({
+            commit
+        }) {
+            return new Promise(resolve => {
+                commit("AddScout");
+                resolve();
+            });
+        },
+        UpdateDashboard({
+            commit
+        },status) {
+            return new Promise(resolve => {
+                commit("isDashboard",status);
+                resolve();
+            });
         }
     }
 });
