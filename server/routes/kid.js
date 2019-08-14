@@ -37,8 +37,14 @@ router.post('/add', (req, res, next) => {
                     if(err){
                         res.status('400').send(`Error saving scout! - ${err}`);
                     }else{
+                        Kid.find({parent:kid.parent})
+                        .populate('User')
+                        .exec(
+                            res.status(200).send({
+                            kid: kid
+                        })
+                        );
                         
-                        res.status(200).send({kid:kid})
                     }
                 });
 
@@ -64,6 +70,23 @@ router.get('/:id', (req, res, next) => {
         }
 
     });
+});
+
+//Get all scouts for a unit by unit_ID //also attaches parent and unit info
+router.get('/all/:id',(req,res,next)=>{
+    Kid
+    .find({unit_ID:req.params.id})
+    .populate('User')
+    .exec((err, foundKids) => {
+        if (err) {
+            res.status(500).send(`Error - ${err}`);
+        } else {
+            console.log(foundKids[0].parent.username)
+            res.status(200).send({
+                scouts: foundKids
+            })
+        }
+    })
 });
 
 module.exports = router;

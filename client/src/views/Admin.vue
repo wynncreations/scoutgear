@@ -2,7 +2,7 @@
     <v-app secondary class="secondary" app>
         <v-container fluid>
             <v-layout>
-                <v-flex>
+                <v-flex class="col-md-2">
                     <v-navigation-drawer dark class="primary">
                         <v-list
                             nav
@@ -29,9 +29,13 @@
                         
                     </v-navigation-drawer>
                 </v-flex>
-
-                <v-flex>
-                    <v-data-table>
+                
+                <v-flex class="col-md-6" v-if="ShowScouts">
+                    <v-data-table dark class="primary"
+                        :headers="headers"     
+                        :items="scouts"
+                        :items-per-page="15"
+                    >
                         
                     </v-data-table>
                 </v-flex>
@@ -47,18 +51,65 @@ export default {
     name: 'Admin',
     data(){
         return {
-            viewScouts: false
+            parent: {},
+            viewScouts: false,
+            error: false,
+            errorMessage: '',
+            scouts: [],
+            headers:[
+                {
+                    text: 'First Name',
+                    align: 'left',
+                    value: 'firstname',
+                },
+                {
+                    text: 'Last Name',
+                    align: 'left',
+                    value: 'lastname',
+                },
+                { text: 'Den', value: 'subUnitType' },
+                { text: 'Parent Email', value: 'username' },
+                { text: 'Funds Raised ($)', value: 'fundRaised', align: 'right' },
+                { text: 'Profit', value: 'profit', align: 'right' },
+                { text: 'Scout Fund ($)', value: 'scoutFund', align: 'right'  }
+            ]
         }
     },
     methods:{
         ViewScouts:function(){
             this.viewScouts = true;
+            this.getScouts();
+        },
+        getScouts: function(){
+            
+            fetch('/kid/all/'+this.$store.getters.me.unit_ID)
+            .then(resp =>{
+                if(!resp.ok){
+                    this.errorMessage = `Error looking up children`;
+                    this.error = true;
+                }else{
+                    return resp.json();
+                }
+            })
+            .then(data=>{
+                this.scouts = data.scouts;
+                this.foundScouts = true;
+                alert(JSON.stringify(this.scouts));
+                //this.$store.dispatch("AddScout");
+            })
+            .catch(err=>{
+                this.errorMessage = `${err}`;
+                this.error = true;
+            })
         }
     },
     computed:{
-        GetScouts: function (){
+        ShowScouts: function (){
             return this.viewScouts;
         }
+    },
+    mounted(){
+        this.getScouts();
     }
 }
 </script>

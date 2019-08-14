@@ -18,7 +18,8 @@ router.post('/create',(req,res,next)=>{
         state: req.body.state,
         zip: req.body.zip,
         phone: req.body.phone,
-        updated_at: Date.now()
+        updated_at: Date.now(),
+        fundRaisingGoal: req.body.fundRaisingGoal
     });
 
     Unit.find({

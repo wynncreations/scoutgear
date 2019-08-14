@@ -15,17 +15,16 @@ var KidsSchema = new Schema({
     created_at: Date,
     updated_at: Date,
     unit_ID: {
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId, ref:'Unit'
     },
     subUnitID:{
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId, ref:'Den'
     },
     subUnitType:{
         type: String
     },
     parent:{
-        type: mongoose.Schema.Types.ObjectId,
-        required: true
+        type: mongoose.Schema.Types.ObjectId, ref:'User', required: true
     },
     fundRaised:{
         type: Number

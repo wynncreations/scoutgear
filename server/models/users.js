@@ -18,7 +18,7 @@ var UserSchema = new Schema({
     created_at: Date,
     updated_at: Date,
     unit_ID: {
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId, ref:'Unit'
     },
     position:{
         type: String,

@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class="blue main">
+    <v-container fluid class="secondary main">
         <v-alert
             v-model="alert"
             dismissible
@@ -13,39 +13,40 @@
             type="danger"   
             >
             {{errMessage}}
-            </v-alert>
-            <v-form v-model="valid">
-                <v-container>
-                <v-layout justify-center>  
-                    <v-flex
+        </v-alert>
+      
+            <v-layout  justify-center align-center fill-height>  
+                <v-flex
                     xs12
-                    md3
-                    >
-            
-                <v-text-field
-                    v-model="username"
-                    label="Email"
-                    required
-                ></v-text-field>
-
-                <v-text-field
-                    v-model="password"
-                    label="Password"
-                    type="password"
-                    required
-                ></v-text-field>
-
-                <v-btn
-                    right
-                    color="primary"
-                    @click="login"
+                    md5
+                    dark
                 >
-                    Login
-                </v-btn>
-                </v-flex>        
-            </v-layout>
-            </v-container>
-        </v-form>
+                <v-form class="primary col-md-6" v-model="valid">
+                    <v-text-field
+                        dark
+                        v-model="username"
+                        label="Email"
+                        required
+                    ></v-text-field>
+
+                    <v-text-field
+                        dark
+                        v-model="password"
+                        label="Password"
+                        type="password"
+                        required
+                    ></v-text-field>
+
+                    <v-btn
+                        right
+                        color="success"
+                        @click="login"
+                    >
+                        Login
+                    </v-btn>
+                </v-form>
+            </v-flex>        
+        </v-layout>
     </v-container>
 </template>
 <script>
@@ -70,7 +71,7 @@ export default {
           this.$store
           .dispatch("login",{username,password})
           .then(()=>{
-            this.$router.push('/dashboard');       
+            this.$router.push('/');       //We need to go to the home route to catch the need for a unit.
           })
           .catch(err =>{
             this.errMessage = err

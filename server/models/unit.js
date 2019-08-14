@@ -61,7 +61,7 @@ var UnitSchema = new Schema({
         default: Date.now()
     },
     updated_at: Date,
-    fundraisingGoal:{
+    fundRaisingGoal:{
         type: Number
     }
 });
