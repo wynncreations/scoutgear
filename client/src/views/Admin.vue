@@ -30,7 +30,7 @@
                     </v-navigation-drawer>
                 </v-flex>
                 
-                <v-flex class="col-md-6" v-if="ShowScouts">
+                <v-flex class="col-md-8" v-if="ShowScouts">
                     <v-data-table dark class="primary"
                         :headers="headers"     
                         :items="scouts"
@@ -66,9 +66,18 @@ export default {
                     text: 'Last Name',
                     align: 'left',
                     value: 'lastname',
+                },                {
+                    text: 'Parent',
+                    align: 'left',
+                    value: 'parent.firstname',
+                },
+                {
+                    text: 'Last Name',
+                    align: 'left',
+                    value: 'parent.lastname',
                 },
                 { text: 'Den', value: 'subUnitType' },
-                { text: 'Parent Email', value: 'username' },
+                { text: 'Parent Email', value: 'parent.username' },
                 { text: 'Funds Raised ($)', value: 'fundRaised', align: 'right' },
                 { text: 'Profit', value: 'profit', align: 'right' },
                 { text: 'Scout Fund ($)', value: 'scoutFund', align: 'right'  }
@@ -94,7 +103,7 @@ export default {
             .then(data=>{
                 this.scouts = data.scouts;
                 this.foundScouts = true;
-                alert(JSON.stringify(this.scouts[0].parent));
+                //alert(JSON.stringify(this.scouts[0].parent.username));
                 //this.$store.dispatch("AddScout");
             })
             .catch(err=>{

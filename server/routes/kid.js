@@ -37,18 +37,23 @@ router.post('/add', (req, res, next) => {
                     if(err){
                         res.status('400').send(`Error saving scout! - ${err}`);
                     }else{
-                        if(kid){
+                        if(kid.parent){
                             Kid.find({
                                     parent: kid.parent
                                 })
                                 .populate({
                                     path: "parent"
                                 })
-                                .exec(
-                                    res.status(200).send({
-                                        kid: kid
-                                    })
-                                );
+                                .exec((err, foundKids) => {
+                                    if (err) {
+                                        res.status(500).send(`Error - ${err}`);
+                                    } else {
+                                        //console.log(foundKids[0].parent.username)
+                                        res.status(200).send({
+                                            scouts: foundKids
+                                        })
+                                    }
+                                })
                         }
 
                         
