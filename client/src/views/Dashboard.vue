@@ -1,5 +1,47 @@
 <template>
-    <v-container fluid class="blue main"> 
+    <v-container fluid class="secondary main"> 
+        <v-layout >
+            <v-flex>
+                <v-navigation-drawer
+                    class="primary "
+                    dark
+                    permanent
+                >
+                    <v-list>
+                        <v-list-item
+                            router
+                            @click="AddScout"
+                        >
+                            <v-list-item-icon>
+                                <v-icon>mdi-account-plus</v-icon>
+                            </v-list-item-icon>
+
+                            <v-list-item-content>
+                                <v-list-item-title>Add Scout</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list>
+                </v-navigation-drawer>
+            </v-flex>
+            <v-flex
+                justify-left
+                fill-height
+                md9
+
+            >
+                <v-data-table  
+                    dark
+                    :headers="headers"     
+                    :items="scouts"
+                    :items-per-page="5"
+
+                    
+                    class="primary elevation-1"
+                ></v-data-table>
+            </v-flex>
+        </v-layout>
+
+
         <v-layout v-if="error">
             <v-flex>
                 <v-alert dismissible type="error">
@@ -20,7 +62,7 @@
         <v-layout fill-height>
             <v-dialog
                 width="40%"
-                v-model="AddScout"
+                v-model="AddScoutStatus"
             >
                 <v-layout v-if="getAddScoutStatus"  align-center justify-center row fill-height>
                     <v-flex xs12 md6>
@@ -66,7 +108,6 @@
                                         text
                                         class="success"
                                         @click="saveScout"
-
                                     >
                                         Submit
                                     </v-btn>
@@ -77,17 +118,7 @@
                 </v-layout>
 
             </v-dialog>
-             
 
-            <v-layout v-if="didFindScouts" align-center justify-center row fill-height>
-                <v-data-table  
-                    dark
-                    :headers="headers"     
-                    :items="scouts"
-                    :items-per-page="5"
-                    class="elevation-1"
-                ></v-data-table>
-            </v-layout>
         </v-layout>  
 
 
@@ -110,6 +141,7 @@ export default {
             success: false,
             addscout:false,
             foundScouts: false,
+            AddScoutStatus:false,
             headers:[
             {
                     text: 'Name',
@@ -120,7 +152,12 @@ export default {
                 { text: 'Funds Raised ($)', value: 'fundRaised', align: 'right' },
                 { text: 'Scout Fund ($)', value: 'scoutFund', align: 'right'  },          
             ],
-            AddScout: this.$store.getters.AddScout
+            items: [
+                { title: 'Add Scout', icon: 'dashboard', function:"AddScout()"}//,
+                //{ title: 'Account', icon: 'account_box' },
+                //{ title: 'Admin', icon: 'gavel' },
+            ]
+            
 
         }
     },
@@ -171,7 +208,7 @@ export default {
                 }else{
                     resp.json()
                     this.success = true;
-                    this.$store.dispatch("AddScout");
+                    this.AddScoutStatus = false;
                     this.successMessage = `Successfully added scout - ${data.firstname + ' ' + data.lastname}`                
                 }
                 })
@@ -182,6 +219,7 @@ export default {
                 this.success = false;
                 this.errorMessage = err
                 this.error = true;
+                this.AddScoutStatus = false;
             });
         },
         formReset: function(){
@@ -213,6 +251,9 @@ export default {
                 this.errorMessage = `${err}`;
                 this.error = true;
             })
+        },
+        AddScout: function(){
+            this.AddScoutStatus = true;
         }
 
     },
@@ -220,14 +261,11 @@ export default {
       getDenId: function (){
           return this.den;
       },
-      getAddScoutStatus: function (){
-          // eslint-disable-next-line
-          this.AddScout = this.$store.getters.AddScout;
-          return this.$store.getters.AddScout;
-          
-      },
       didFindScouts: function (){
           return this.foundScouts;
+      },
+      getAddScoutStatus : function(){
+          return this.AddScoutStatus;
       }
     }
 }
@@ -243,5 +281,8 @@ export default {
     }
     .register{
         margin-top: 25px;
+    }
+    .sidebar{
+        min-height: 100%;
     }
 </style>

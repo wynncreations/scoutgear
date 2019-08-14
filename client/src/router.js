@@ -6,6 +6,7 @@ import Register from './views/Register.vue'
 import store from './store'
 import PickUnit from './views/PickUnit.vue'
 import Dashboard from './views/Dashboard.vue'
+import Admin from './views/Admin.vue'
 
 Vue.use(Router)
 
@@ -46,6 +47,14 @@ const router = new Router({
       meta:{
         requiresAuth: true
       }
+    },
+    {
+      path: '/admin',
+      name:'Admin',
+      component: Admin,
+      meta:{
+        requiresAdminAuth: true
+      }
     }
   ]
 })
@@ -74,36 +83,6 @@ router.beforeEach((to,from,next)=>{
     next();
   }
 
-  if (to.matched.some(record=>{
-    if(record.path === '/dashboard'){
-      return true;
-    }
-  }) && !from.matched.some(record => {
-  if (record.path === '/dashboard') {
-    return true;
-  }
-  })) { //We are moving to dashboard, and not also coming from dashboard, toggle dashboard to true.
-    this.$store.dispatch("updateDashboard",true);
-    next();
-  } 
-  else if (to.matched.some(record => {
-      if (record.path === '/dashboard') {
-        return true;
-      }
-    }) && from.matched.some(record => {
-    if (record.path === '/dashboard') {
-      return true;
-    }
-    })){//We are moving to dashboard, from dashboard, dont toggle.
-      next();
-  } else if (from.matched.some(record => {
-      if (record.path === '/dashboard') {
-        return true;
-      }
-    })) { //We are moving away from dashboard, but not to it also, toggle it false.
-     this.$store.dispatch("updateDashboard",false);
-     next();
-  }
 
 
 

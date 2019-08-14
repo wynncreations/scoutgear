@@ -79,7 +79,7 @@ export default {
                 username: this.email,
                 password: this.password
             };
-            alert(JSON.stringify(data1));
+            //alert(JSON.stringify(data1));
             this.$store
                 .dispatch("register", data1)
                 .then(()=>{

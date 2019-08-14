@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="blue main">
+  <v-container fluid class="secondary main">
     <v-layout v-if="isLoggedIn" justify-center>
       <v-flex xs12 md4>
 

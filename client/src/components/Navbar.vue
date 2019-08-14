@@ -1,9 +1,10 @@
 <template> 
-    <v-app-bar app>      
+    <v-app-bar dark class="primary">      
       <v-btn
         text
         router
         to="/"
+        
       >
       <v-toolbar-title class="headline text-uppercase">
         <span>Scouts</span>
@@ -30,17 +31,14 @@
       </v-btn>  
 
       <v-btn
-        
+        v-if="checkAdmin"
         text
-        @click="AddScout"
+        router
+        to="/admin"
+        
       >
-        Add Scout
+        <span  class="mr-2">Unit Dashboard</span>
       </v-btn>
-
-
-
-
-
 
       <v-btn
         v-if="checkLogin"
@@ -88,9 +86,6 @@ export default {
                 this.errMessage = err;
                 this.errStatus = true;
             })
-        },
-        AddScout: function(){
-          this.$store.dispatch("AddScout");
         }
     },
     computed:{
@@ -104,15 +99,12 @@ export default {
         }else{
           return false;
         }
-      },
-      isDashboard: function (){
-        return this.$store.getters.isDashboard;
       }
     },
     mounted(){
         this.isLoggedIn = this.$store.getters.isLoggedIn;
         this.getState;
-        this.isDashboard();
+       
     }
 }
 </script>

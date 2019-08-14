@@ -60,7 +60,10 @@ var UnitSchema = new Schema({
         type: Date,
         default: Date.now()
     },
-    updated_at: Date
+    updated_at: Date,
+    fundraisingGoal:{
+        type: Number
+    }
 });
 
 // Compile model from schema
