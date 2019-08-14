@@ -94,7 +94,7 @@ export default {
             .then(data=>{
                 this.scouts = data.scouts;
                 this.foundScouts = true;
-                alert(JSON.stringify(this.scouts));
+                alert(JSON.stringify(this.scouts[0].parent));
                 //this.$store.dispatch("AddScout");
             })
             .catch(err=>{
