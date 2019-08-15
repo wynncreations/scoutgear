@@ -15,36 +15,41 @@
             {{errMessage}}
         </v-alert>
       
-            <v-layout  justify-center align-center fill-height>  
+            <v-layout  justify-center>  
                 <v-flex
                     xs12
-                    md5
+                    md3
                     dark
                 >
-                <v-form class="primary col-md-6" v-model="valid">
-                    <v-text-field
-                        dark
-                        v-model="username"
-                        label="Email"
-                        required
-                    ></v-text-field>
+                <v-card >
+                    <v-card-title class="headline text-uppercase align-content-space-around">Login</v-card-title>
+                    <v-card-text>
+                        <v-form class="white" v-model="valid">
+                            <v-text-field
+                                
+                                v-model="username"
+                                label="Email"
+                                required
+                            ></v-text-field>
 
-                    <v-text-field
-                        dark
-                        v-model="password"
-                        label="Password"
-                        type="password"
-                        required
-                    ></v-text-field>
+                            <v-text-field
+                                
+                                v-model="password"
+                                label="Password"
+                                type="password"
+                                required
+                            ></v-text-field>
 
-                    <v-btn
-                        right
-                        color="success"
-                        @click="login"
-                    >
-                        Login
-                    </v-btn>
-                </v-form>
+                            <v-btn
+                                right
+                                color="success"
+                                @click="login"
+                            >
+                                Login
+                            </v-btn>
+                        </v-form>
+                    </v-card-text>
+                </v-card>
             </v-flex>        
         </v-layout>
     </v-container>

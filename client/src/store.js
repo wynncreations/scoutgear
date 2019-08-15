@@ -164,7 +164,7 @@ export default new Vuex.Store({
         getUpdatedUnit({
             commit
         }, oldUnit) {
-            alert(oldUnit);
+            //alert(oldUnit);
             fetch(`unit/${oldUnit}`)
                 .then(resp => resp.json())
                 .then(resp => {
