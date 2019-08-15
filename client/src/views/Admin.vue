@@ -36,7 +36,12 @@
                         :items="scouts"
                         :items-per-page="15"
                     >
-                        
+                    <template v-slot:item.firstname="{ item }">
+                        {{ item.firstname }} {{item.lastname}}
+                    </template>   
+                    <template v-slot:item.parent.firstname="{ item }">
+                       {{ item.parent.firstname }} {{item.parent.lastname}}
+                    </template>                                        
                     </v-data-table>
                 </v-flex>
             </v-layout>
@@ -61,20 +66,10 @@ export default {
                     text: 'First Name',
                     align: 'left',
                     value: 'firstname',
-                },
-                {
-                    text: 'Last Name',
-                    align: 'left',
-                    value: 'lastname',
                 },                {
                     text: 'Parent',
                     align: 'left',
                     value: 'parent.firstname',
-                },
-                {
-                    text: 'Last Name',
-                    align: 'left',
-                    value: 'parent.lastname',
                 },
                 { text: 'Den', value: 'subUnitType' },
                 { text: 'Parent Email', value: 'parent.username' },

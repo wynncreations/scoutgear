@@ -30,6 +30,13 @@
         <span  class="mr-2">Register</span>
       </v-btn>  
 
+      <span class="col-md-3"
+        v-if="checkLogin"
+      >
+        Welcome {{this.$store.getters.me.username}} - {{this.$store.getters.unit.unit_name}}
+
+      </span>
+
       <v-btn
         v-if="checkAdmin"
         text

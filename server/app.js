@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({
 dotenv.config();
 
 // some logger stuff
-app.use(logger("dev"));
+//app.use(logger("dev"));
 
 // db
 

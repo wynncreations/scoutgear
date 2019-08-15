@@ -35,8 +35,8 @@ router.post('/create',(req,res,next)=>{
                     if (err) {
                         res.status(400).send(`Error registering unit - ${err}`);
                     } else {
-                        console.log(`Successfully registered unit - ${unit}`)
-                        res.status(201).send({
+                        //console.log(`Successfully registered unit - ${unit}`)
+                        res.status(200).send({
                             unit: unit
                         });
                     }
@@ -47,10 +47,11 @@ router.post('/create',(req,res,next)=>{
 });
 
 router.get('/:id',(req,res,next)=>{
-    Unit.find({id:req.params.id},(err,unit)=>{
+    Unit.findOne({_id:req.params.id},(err,unit)=>{
         if(err){
             res.status(400).send(`Error finding unit - ${err}`);
         }else{
+           // console.log(unit)
             res.status(201).send({unit:unit});
         }
     })

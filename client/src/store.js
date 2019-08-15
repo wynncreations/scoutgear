@@ -8,6 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         me: {},
+        unit:{},
         registerResponseStatus: "",
         isLoggedIn: false,
         users: null,
@@ -16,9 +17,7 @@ export default new Vuex.Store({
         isDev: false,
         firstLook: false,
         successMessage: "",
-        kids: [],
-        AddScout: false,
-        isDashboard: false
+        kids: []
     },
     plugins: [
         createPersistedState({
@@ -37,6 +36,9 @@ export default new Vuex.Store({
         updateKids(state,kids){
             state.kids = kids
         },
+        updateUnit(state, unit){
+            state.unit = unit
+        },
         userUsers(state, users) {
             state.users = users;
         },
@@ -52,18 +54,13 @@ export default new Vuex.Store({
             state.authStatus = "";
             state.token = "";
             state.me = {};
+            state.unit = {};
             state.isLoggedIn = false;
             state.kids = [];
         },
         registerResponse(state, responseStatus, user) {
             state.registerResponseStatus = responseStatus;
             state.me = user.username;
-        },
-        AddScout(state){
-            state.AddScout = !state.AddScout;
-        },
-        UpdateDashboard(state,status){
-            state.isDashboard = status;
         }
     },
     getters: {
@@ -76,8 +73,7 @@ export default new Vuex.Store({
         registerResponseStatus: state => state.registerResponseStatus,
         successMessage: state => state.successMessage,
         kids: state => state.kids,
-        AddScout: state => state.AddScout,
-        isDashboard: state=> state.isDashboard
+        unit: state=> state.unit
     },
     actions: {
         getUpdatedMe({
@@ -108,6 +104,11 @@ export default new Vuex.Store({
                         localStorage.setItem("token", resp.token);
                         commit("updateMe", resp.me);
                         commit("authSuccess", resp.token);
+                        if (resp.me.unit_ID !== "000000000000000000000000") {
+                            //alert(resp.me.unit_ID);
+                            this.dispatch("getUpdatedUnit", resp.me.unit_ID);
+                        }
+                        
                         resolve(resp);
                     })
                     .catch(err => {
@@ -160,21 +161,17 @@ export default new Vuex.Store({
                     })
             })
         },
-        AddScout({
+        getUpdatedUnit({
             commit
-        }) {
-            return new Promise(resolve => {
-                commit("AddScout");
-                resolve();
-            });
-        },
-        UpdateDashboard({
-            commit
-        },status) {
-            return new Promise(resolve => {
-                commit("isDashboard",status);
-                resolve();
-            });
+        }, oldUnit) {
+            alert(oldUnit);
+            fetch(`unit/${oldUnit}`)
+                .then(resp => resp.json())
+                .then(resp => {
+                    //alert(resp.unit);
+                    commit("updateUnit", resp.unit);
+                    
+                });
         }
     }
 });

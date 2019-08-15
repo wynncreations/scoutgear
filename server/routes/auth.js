@@ -110,7 +110,7 @@ router.post('/joinunit/',(req,res,next)=>{
                             res.status(400).send(`Error - ${err}`);
                         } else {
                             //console.log(user)
-                            res.status(201).send("Successfully Updated unit",{user:user});
+                            res.status(200).send({user:user});
                         }
                     })
                 }
