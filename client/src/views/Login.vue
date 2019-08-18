@@ -26,7 +26,6 @@
                     <v-card-text>
                         <v-form class="white" v-model="valid">
                             <v-text-field
-                                
                                 v-model="username"
                                 label="Email"
                                 required

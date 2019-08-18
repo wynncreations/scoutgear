@@ -36,19 +36,39 @@
                         :items="scouts"
                         :items-per-page="15"
                     >
-                    <template v-slot:item.firstname="{ item }">
-                        {{ item.firstname }} {{item.lastname}}
-                    </template>   
-                    <template v-slot:item.parent.firstname="{ item }">
-                       {{ item.parent.firstname }} {{item.parent.lastname}}
-                    </template>                                        
+                        <template v-slot:item.firstname="{ item }">
+                            {{ item.firstname }} {{item.lastname}}
+                        </template>   
+                        <template v-slot:item.parent.firstname="{ item }">
+                        {{ item.parent.firstname }} {{item.parent.lastname}}
+                        </template>        
+
+                        <template v-slot:item.fundRaised="props">
+                            <v-edit-dialog
+                            :return-value.sync="props.item.fundRaised"
+                            @save="save"
+                            @cancel="cancel"
+                            @open="open"
+                            @close="close"
+                            persistent
+                            > {{ props.item.fundRaised }}
+                            <template v-slot:input>
+                                <v-text-field
+                                persistent
+                                large
+                                v-model="props.item.fundRaised"
+                                :rules="[max25chars]"
+                                label="Edit"
+                                single-line
+                                counter
+                                ></v-text-field>
+                            </template>
+                            </v-edit-dialog>
+                        </template>                                
                     </v-data-table>
                 </v-flex>
             </v-layout>
         </v-container>
-
-
-
     </v-app>
 </template>
 <script>
