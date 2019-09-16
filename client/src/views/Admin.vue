@@ -36,35 +36,20 @@
                         :items="scouts"
                         :items-per-page="15"
                     >
-                        <template v-slot:item.firstname="{ item }">
+                        
+                            <template v-slot:item.firstname="{ item }">
+                            <v-icon @click="editScout(item._id)"> mdi-account-edit</v-icon> 
                             {{ item.firstname }} {{item.lastname}}
-                        </template>   
-                        <template v-slot:item.parent.firstname="{ item }">
-                        {{ item.parent.firstname }} {{item.parent.lastname}}
-                        </template>        
+                            </template>   
+                            <template v-slot:item.parent.firstname="{ item }">
+                            {{ item.parent.firstname }} {{item.parent.lastname}}
+                            </template>  
+                        
+      
+     
 
-                        <template v-slot:item.fundRaised="props">
-                            <v-edit-dialog
-                            :return-value.sync="props.item.fundRaised"
-                            @save="save"
-                            @cancel="cancel"
-                            @open="open"
-                            @close="close"
-                            persistent
-                            > {{ props.item.fundRaised }}
-                            <template v-slot:input>
-                                <v-text-field
-                                persistent
-                                large
-                                v-model="props.item.fundRaised"
-                                :rules="[max25chars]"
-                                label="Edit"
-                                single-line
-                                counter
-                                ></v-text-field>
-                            </template>
-                            </v-edit-dialog>
-                        </template>                                
+                      
+
                     </v-data-table>
                 </v-flex>
             </v-layout>
@@ -83,7 +68,7 @@ export default {
             scouts: [],
             headers:[
                 {
-                    text: 'First Name',
+                    text: 'Scout',
                     align: 'left',
                     value: 'firstname',
                 },                {
@@ -100,6 +85,11 @@ export default {
         }
     },
     methods:{
+        editItem (item) {
+            this.editedIndex = this.scouts.indexOf(item)
+            this.editedItem = Object.assign({}, item)
+            this.dialog = true
+        },
         ViewScouts:function(){
             this.viewScouts = true;
             this.getScouts();
@@ -125,6 +115,9 @@ export default {
                 this.errorMessage = `${err}`;
                 this.error = true;
             })
+        },
+        editScout: function(id){
+            this.$router.push('/scout/'+id+'/edit');
         }
     },
     computed:{
@@ -132,9 +125,12 @@ export default {
             return this.viewScouts;
         }
     },
-    mounted(){
-        this.getScouts();
+    watch: {
+      dialog (val) {
+        val || this.close()
+      },
     }
+
 }
 </script>
 <style scoped>

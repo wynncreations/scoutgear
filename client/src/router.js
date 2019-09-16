@@ -7,6 +7,7 @@ import store from './store'
 import PickUnit from './views/PickUnit.vue'
 import Dashboard from './views/Dashboard.vue'
 import Admin from './views/Admin.vue'
+import EditScout from './views/EditScout.vue'
 
 Vue.use(Router)
 
@@ -55,6 +56,14 @@ const router = new Router({
       meta:{
         requiresAdminAuth: true
       }
+    },
+    {
+      path: '/scout/:id/edit',
+      name: 'EditScout',
+      component: EditScout,
+      meta: {
+        requiresAdminAuth: true
+      }
     }
   ]
 })
@@ -92,10 +101,11 @@ router.beforeEach((to,from,next)=>{
       next();
     }
     next("/login");
-  } else if (to.matched.some(record => record.meta.requiresAdminAuth)) {
-    if (store.getters.isLoggedIn && store.getters.isAdmin) {
+  }
+  if (to.matched.some(record => record.meta.requiresAdminAuth)) {
+    if (this.$store.getters.isLoggedIn && this.$store.getters.isAdmin) {
       next();
-    } else if (store.getters.isLoggedIn && !store.getters.isAdmin) {
+    } else if (this.$store.getters.isLoggedIn && !this.$store.getters.isAdmin) {
       next("/");
     }
   } else {

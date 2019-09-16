@@ -86,6 +86,7 @@ export default {
       },
         logout: function(){
             this.$store.state.isLoggedIn = false;
+            this.$store.state.isAdmin = false;
             this.$store.dispatch("logout")
             .then(this.$router.push("/"))
             .catch(err=>{
