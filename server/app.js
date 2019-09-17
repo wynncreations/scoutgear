@@ -38,6 +38,7 @@ const auth = require('./routes/auth');
 const unit = require('./routes/unit');
 const kid = require('./routes/kid');
 const dens = require('./routes/dens');
+const scout = require('./routes/scout');
 
 
 //plug the routes in.
@@ -45,6 +46,7 @@ app.use('/inventory', inventory);
 app.use('/auth', auth);
 app.use('/unit', unit);
 app.use('/kid', kid);
+app.use('/scout', scout);
 app.use('/dens', dens);
 
 

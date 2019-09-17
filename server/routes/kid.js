@@ -104,4 +104,28 @@ router.get('/all/:id',(req,res,next)=>{
     })
 });
 
+
+
+router.get('/scout/:id',(req,res,next)=>{
+    Kid
+        .find({
+            _id: req.params.id
+        })
+        .populate({
+            path: "parent",
+            select: "-password"
+        })
+        .exec((err, foundKids) => {
+            if (err) {
+                res.status(500).send(`Error - ${err}`);
+            } else {
+                //console.log(foundKids[0].parent.username)
+                console.log(JSON.stringify(foundKids));
+                res.status(200).send({
+                    scout: foundKids
+                })
+            }
+        })
+});
+
 module.exports = router;

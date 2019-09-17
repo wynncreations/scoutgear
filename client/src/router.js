@@ -58,7 +58,7 @@ const router = new Router({
       }
     },
     {
-      path: '/scout/:id/edit',
+      path: '/scout/edit',
       name: 'EditScout',
       component: EditScout,
       meta: {
@@ -105,7 +105,7 @@ router.beforeEach((to,from,next)=>{
   if (to.matched.some(record => record.meta.requiresAdminAuth)) {
     if (this.$store.getters.isLoggedIn && this.$store.getters.isAdmin) {
       next();
-    } else if (this.$store.getters.isLoggedIn && !this.$store.getters.isAdmin) {
+    } else if (!this.$store.getters.isLoggedIn || !this.$store.getters.isAdmin) {
       next("/");
     }
   } else {

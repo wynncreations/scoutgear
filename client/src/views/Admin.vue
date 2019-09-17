@@ -108,8 +108,6 @@ export default {
             .then(data=>{
                 this.scouts = data.scouts;
                 this.foundScouts = true;
-                //alert(JSON.stringify(this.scouts[0].parent.username));
-                //this.$store.dispatch("AddScout");
             })
             .catch(err=>{
                 this.errorMessage = `${err}`;
@@ -117,7 +115,7 @@ export default {
             })
         },
         editScout: function(id){
-            this.$router.push('/scout/'+id+'/edit');
+            this.$router.push('/scout/edit?id='+id);
         }
     },
     computed:{
