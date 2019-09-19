@@ -25,6 +25,24 @@
                                     </v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>
+                            <v-list-item
+                                link
+                            >
+                                <v-list-item-icon>
+                                    <v-icon>
+                                        mdi-view-comfy
+                                    </v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title 
+
+                                        link
+                                        @click="addItem"
+                                    >
+                                        Add Item
+                                    </v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
                         </v-list>
                         
                     </v-navigation-drawer>
@@ -39,6 +57,7 @@
                         
                             <template v-slot:item.firstname="{ item }">
                             <v-icon @click="editScout(item._id)"> mdi-account-edit</v-icon> 
+                            <v-icon @click="deleteScout(item._id)"> mdi-trash-can</v-icon> 
                             {{ item.firstname }} {{item.lastname}}
                             </template>   
                             <template v-slot:item.parent.firstname="{ item }">
@@ -52,17 +71,28 @@
 
                     </v-data-table>
                 </v-flex>
+                <v-flex class="col-md-8" dark v-if="AddItems">
+                    <v-content>
+                        <AddItem/>
+                    </v-content>
+                </v-flex>
             </v-layout>
         </v-container>
     </v-app>
 </template>
 <script>
+import AddItem from '../components/AddItem'
+
 export default {
     name: 'Admin',
+    components:{
+        AddItem
+    },
     data(){
         return {
             parent: {},
             viewScouts: false,
+            addItems:false,
             error: false,
             errorMessage: '',
             scouts: [],
@@ -92,7 +122,12 @@ export default {
         },
         ViewScouts:function(){
             this.viewScouts = true;
+            this.addItems = false;
             this.getScouts();
+        },
+        addItem: function(){
+            this.addItems = true;
+            this.viewScouts = false;
         },
         getScouts: function(){
             
@@ -116,11 +151,21 @@ export default {
         },
         editScout: function(id){
             this.$router.push('/scout/edit?id='+id);
+        },
+        deleteScout: function(id){
+            fetch('/scout/delete/'+id,{method:'delete'})
+            .then(resp=>resp.json())
+            .catch(err=>console.log(err));
+
+            this.$router.push('/admin');//not firing?
         }
     },
     computed:{
         ShowScouts: function (){
             return this.viewScouts;
+        },
+        AddItems: function(){
+            return this.addItems;
         }
     },
     watch: {

@@ -58,6 +58,19 @@ router.post('/update',(req,res,next)=>{
     });
 });
 
+router.delete('/delete/:id',(req,res,next)=>{
+    console.log(req.params.id);
+    var id = req.params.id;
+    Kid.findByIdAndDelete(id,(err)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send(`Error deleting ${err}`);
+        }else{
+            console.log(`Deleted ${id}`);
+            res.status(200).send(`Deleted ${id}`);
+        }
+    });
+});
 
 
 module.exports = router;
