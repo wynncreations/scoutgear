@@ -71,26 +71,71 @@
 
                     </v-data-table>
                 </v-flex>
-                <v-flex class="col-md-8" dark v-if="AddItems">
-                    <v-content>
-                        <AddItem/>
-                    </v-content>
+                <v-flex class="col-md-8" dark v-if="ShowAddItems">
+                    <v-card>
+                        <v-card-title>
+                            Add Store Item
+                        </v-card-title>
+                        <v-card-text>
+                            <v-form class="white" v-model="valid">
+                                <v-text-field
+                                    v-model="item.name"
+                                    label="Item Name"
+                                    required
+                                >
+                                </v-text-field>
+                                <v-text-field
+                                    v-model="item.category"
+                                    label="Item Category"
+                                    required
+                                >
+                                </v-text-field>
+                                <v-text-field
+                                    v-model="item.subCategory"
+                                    label="Item Sub Category"
+                                    required
+                                >
+                                </v-text-field>
+                                <v-text-field
+                                    v-model="item.retailPrice"
+                                    label="Item Retail Price"
+                                    required
+                                >
+                                </v-text-field>
+                                <v-text-field
+                                    v-model="item.retailURL"
+                                    label="Item Retail URL"
+                                    required
+                                >
+                                </v-text-field>
+                                <v-text-field
+                                    v-model="item.retailImageURL"
+                                    label="Item Retail Image URL"
+                                    required
+                                >
+                                </v-text-field>
+                                <v-text-field
+                                    v-model="item.shippingCost"
+                                    label="Item Shipping Cost"
+                                    required
+                                >
+                                </v-text-field>
+                            </v-form>
+                        </v-card-text>
+                    </v-card>
                 </v-flex>
             </v-layout>
         </v-container>
     </v-app>
 </template>
 <script>
-import AddItem from '../components/AddItem'
 
 export default {
     name: 'Admin',
-    components:{
-        AddItem
-    },
     data(){
         return {
             parent: {},
+            item: {},
             viewScouts: false,
             addItems:false,
             error: false,
@@ -155,7 +200,7 @@ export default {
         deleteScout: function(id){
             fetch('/scout/delete/'+id,{method:'delete'})
             .then(resp=>resp.json())
-            .catch(err=>console.log(err));
+            .catch(err=>err);
 
             this.$router.push('/admin');//not firing?
         }
@@ -164,7 +209,7 @@ export default {
         ShowScouts: function (){
             return this.viewScouts;
         },
-        AddItems: function(){
+        ShowAddItems: function(){
             return this.addItems;
         }
     },

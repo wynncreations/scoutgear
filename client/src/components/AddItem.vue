@@ -5,7 +5,7 @@
                 Add Store Item
             </v-card-title>
             <v-card-text>
-                <v-form>
+                <v-form class="white" v-model="valid">
                     <v-text-field
                         v-model="item.name"
                         label="Item Name"
