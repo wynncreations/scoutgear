@@ -49,14 +49,12 @@ app.use('/kid', kid);
 app.use('/scout', scout);
 app.use('/dens', dens);
 
+if (process.env.ENV === "production") {
+    app.use(express.static(path.join(__dirname, "dist")));
+    console.log(path.join(__dirname, "dist"));
+}
 
-app.get('/',(req,res,next)=>{
-    res.send("Welcome to scoutsgeared backend");
-});
 
-//app.get('/inventory',(req,res,next)=>{
-//    res.send("Inventory");
-//});
 // create the server
 app.listen(port, () => {
     console.log(`Server online, please proceed to port ${port} for rapid assimilation.`);
