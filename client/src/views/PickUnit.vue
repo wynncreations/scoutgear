@@ -79,7 +79,7 @@ export default {
 
             //alert (JSON.stringify(data))
 
-            fetch(`${base}/auth/joinunit`,{
+            fetch(`${this.$store.getters.base}/auth/joinunit`,{
                 method: "post",
                 headers: {
                     "Content-Type": "application/json"
