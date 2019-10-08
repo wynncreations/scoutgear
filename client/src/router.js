@@ -96,16 +96,18 @@ router.beforeEach((to,from,next)=>{
 
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
+    alert(store.getters.isLoggedIn);
     //alert(this.$store.getters.isLoggedIn)
-    if (this.$store.getters.isLoggedIn) {
+    if (store.getters.isLoggedIn) {
+      
       next();
     }
     next("/login");
   }
   if (to.matched.some(record => record.meta.requiresAdminAuth)) {
-    if (this.$store.getters.isLoggedIn && this.$store.getters.isAdmin) {
+    if (store.getters.isLoggedIn && store.getters.isAdmin) {
       next();
-    } else if (!this.$store.getters.isLoggedIn || !this.$store.getters.isAdmin) {
+    } else if (store.getters.isLoggedIn || store.getters.isAdmin) {
       next("/");
     }
   } else {
