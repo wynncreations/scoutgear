@@ -1,5 +1,5 @@
 module.exports = {
     devServer: {
-        proxy: 'http://scoutsgeared.com/'
+        proxy: 'http://api.scoutsgeared.com/'
     }
 }
