@@ -81,7 +81,7 @@ export default new Vuex.Store({
         getUpdatedMe({
             commit
         }, oldMe) {
-            fetch(`${base}/users/getById/${oldMe.user_id}`)
+            fetch(`${this.$store.getters.base}/users/getById/${oldMe.user_id}`)
                 .then(resp => resp.json())
                 .then(resp => {
                     commit("updateMe", resp);
@@ -93,7 +93,7 @@ export default new Vuex.Store({
 
             return new Promise((resolve, reject) => {
                 //alert(JSON.stringify(me))
-                fetch(`${base}/auth/login`, {
+                fetch(`${this.$store.getters.base}/auth/login`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -124,7 +124,7 @@ export default new Vuex.Store({
             commit
         }, user) {
             return new Promise((resolve, reject) => {
-                fetch(`${base}/auth/register`, {
+                fetch(`${this.$store.getters.base}/auth/register`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -152,7 +152,7 @@ export default new Vuex.Store({
         },
         getKids({commit}){
             return new Promise((resolve,reject)=>{
-                fetch(`${base}/auth/kids/`+this.$store.getters.me._id)
+                fetch(`${this.$store.getters.base}/auth/kids/` + this.$store.getters.me._id)
                     .then(resp => resp.json())
                     .then((resp) => {
                         commit("updateKids", resp.kids)
@@ -167,7 +167,7 @@ export default new Vuex.Store({
             commit
         }, oldUnit) {
             //alert(oldUnit);
-            fetch(`${base}/unit/${oldUnit}`)
+            fetch(`${this.$store.getters.base}/unit/${oldUnit}`)
                 .then(resp => resp.json())
                 .then(resp => {
                     //alert(resp.unit);
