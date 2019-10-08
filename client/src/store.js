@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
+        base: "http://api.scoutsgeared.com",
         me: {},
         unit:{},
         registerResponseStatus: "",
@@ -65,6 +66,7 @@ export default new Vuex.Store({
     },
     getters: {
         //isDev: state => (state.isDev = process.env.VUE_APP_ENV === "development"),
+        base: state=> state.base,
         me: state => state.me,
         users: state => state.users,
         isLoggedIn: state => !!state.token,
@@ -79,7 +81,7 @@ export default new Vuex.Store({
         getUpdatedMe({
             commit
         }, oldMe) {
-            fetch(`/users/getById/${oldMe.user_id}`)
+            fetch(`${base}/users/getById/${oldMe.user_id}`)
                 .then(resp => resp.json())
                 .then(resp => {
                     commit("updateMe", resp);
@@ -91,7 +93,7 @@ export default new Vuex.Store({
 
             return new Promise((resolve, reject) => {
                 //alert(JSON.stringify(me))
-                fetch("auth/login", {
+                fetch(`${base}/auth/login`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -122,7 +124,7 @@ export default new Vuex.Store({
             commit
         }, user) {
             return new Promise((resolve, reject) => {
-                fetch("auth/register", {
+                fetch(`${base}/auth/register`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -150,7 +152,7 @@ export default new Vuex.Store({
         },
         getKids({commit}){
             return new Promise((resolve,reject)=>{
-                fetch("auth/kids/"+this.$store.getters.me._id)
+                fetch(`${base}/auth/kids/`+this.$store.getters.me._id)
                     .then(resp => resp.json())
                     .then((resp) => {
                         commit("updateKids", resp.kids)
@@ -165,7 +167,7 @@ export default new Vuex.Store({
             commit
         }, oldUnit) {
             //alert(oldUnit);
-            fetch(`unit/${oldUnit}`)
+            fetch(`${base}/unit/${oldUnit}`)
                 .then(resp => resp.json())
                 .then(resp => {
                     //alert(resp.unit);

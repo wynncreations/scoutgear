@@ -169,7 +169,7 @@ export default {
     },
     methods:{
         getDens: function (){
-            fetch('/dens')
+            fetch(`${base}/dens`)
             .then(resp=> resp.json())
             .then(data => this.dens = data.dens)
         },
@@ -192,7 +192,7 @@ export default {
 
             //alert(JSON.stringify(data))
 
-            fetch('/kid/add',{
+            fetch(`${base}/kid/add`,{
                 method:"POST",
                 headers:{
                     "Content-Type": "application/json"
@@ -233,7 +233,7 @@ export default {
             this.success = false;
         },
         getScouts: function(){
-            fetch('/kid/'+this.parent._id)
+            fetch(`${base}/kid/${this.parent._id}`)
             .then(resp =>{
                 if(!resp.ok){
                     this.errorMessage = `Error looking up children`;

@@ -195,10 +195,10 @@ export default {
             })
         },
         editScout: function(id){
-            this.$router.push('/scout/edit?id='+id);
+            this.$router.push(`${base}/scout/edit?id=${id}`);
         },
         deleteScout: function(id){
-            fetch('/scout/delete/'+id,{method:'delete'})
+            fetch(`${base}/scout/delete/${id}`,{method:'delete'})
             .then(resp=>resp.json())
             .catch(err=>err);
 
