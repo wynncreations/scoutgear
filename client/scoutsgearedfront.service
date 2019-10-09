@@ -1,5 +1,5 @@
 [Unit]
-Description=ScoutsGeared Api
+Description=ScoutsGeared Frontend 
 
 [Service]
 ExecStart=/usr/bin/node app.js
