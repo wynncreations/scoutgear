@@ -7,7 +7,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        base: "http://api.scoutsgeared.com",
+        base: "",
         me: {},
         unit:{},
         registerResponseStatus: "",
