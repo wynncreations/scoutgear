@@ -14,6 +14,8 @@ Vue.use(Vuex);
 
 Vue.config.productionTip = false
 
+Vue.http.options.root = "http://api.scoutsgeared.com"
+
 new Vue({
   router,
   vuetify,

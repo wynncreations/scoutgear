@@ -124,7 +124,7 @@ export default new Vuex.Store({
             commit
         }, user) {
             return new Promise((resolve, reject) => {
-                fetch(`${this.base}/auth/register`, {
+                fetch(`${base}/auth/register`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
