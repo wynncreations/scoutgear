@@ -81,7 +81,7 @@ export default new Vuex.Store({
         getUpdatedMe({
             commit
         }, oldMe) {
-            fetch(`${this.base}/users/getById/${oldMe.user_id}`)
+            fetch(`http://api.scoutsgeared.com/users/getById/${oldMe.user_id}`)
                 .then(resp => resp.json())
                 .then(resp => {
                     commit("updateMe", resp);
@@ -92,8 +92,8 @@ export default new Vuex.Store({
         }, me) {
 
             return new Promise((resolve, reject) => {
-                //alert(JSON.stringify(me))
-                fetch(`${this.base}/auth/login`, {
+                //alert(`http://api.scoutsgeared.com/auth/login`);
+                fetch(`http://api.scoutsgeared.com/auth/login`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -102,7 +102,7 @@ export default new Vuex.Store({
                     })
                     .then(resp => resp.json())
                     .then(resp => {
-                        //alert(resp.me)
+                        //alert(`${this.base}/auth/login`);
                         localStorage.setItem("token", resp.token);
                         commit("updateMe", resp.me);
                         commit("authSuccess", resp.token);
@@ -124,7 +124,7 @@ export default new Vuex.Store({
             commit
         }, user) {
             return new Promise((resolve, reject) => {
-                fetch(`${base}/auth/register`, {
+                fetch(`http://api.scoutsgeared.com/auth/register`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -152,7 +152,7 @@ export default new Vuex.Store({
         },
         getKids({commit}){
             return new Promise((resolve,reject)=>{
-                fetch(`${this.base}/auth/kids/` + this.me._id)
+                fetch(`http://api.scoutsgeared.com/auth/kids/` + this.me._id)
                     .then(resp => resp.json())
                     .then((resp) => {
                         commit("updateKids", resp.kids)
@@ -167,7 +167,7 @@ export default new Vuex.Store({
             commit
         }, oldUnit) {
             //alert(oldUnit);
-            fetch(`${this.base}/unit/${oldUnit}`)
+            fetch(`http://api.scoutsgeared.com/unit/${oldUnit}`)
                 .then(resp => resp.json())
                 .then(resp => {
                     //alert(resp.unit);

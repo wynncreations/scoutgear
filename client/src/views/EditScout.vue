@@ -65,7 +65,7 @@ export default {
         }
     },
     mounted(){
-        fetch(`${this.$store.getters.base}/scout/${this.$route.query.id}/withParent`)
+        fetch(`http://api.scoutsgeared.com/scout/${this.$route.query.id}/withParent`)
         .then(resp =>{
                 if(!resp.ok){
                     this.errorMessage = `Error looking up scout`;
@@ -85,7 +85,7 @@ export default {
     },
     methods:{
         updateScout: function (){
-            fetch(`${this.$store.getters.base}/scout/update`,{
+            fetch(`http://api.scoutsgeared.com/scout/update`,{
                 method:'POST',
                 headers: {
                     "Content-Type": "application/json"

@@ -64,7 +64,7 @@ export default {
     },
     mounted(){
         this.me = this.$store.getters.me;
-        fetch('/unit/')
+        fetch('http://api.scoutsgeared.com/unit/')
         .then(resp => resp.json())
         .then(data => this.units=data.units)
     },
@@ -79,7 +79,7 @@ export default {
 
             //alert (JSON.stringify(data))
 
-            fetch(`${this.$store.getters.base}/auth/joinunit`,{
+            fetch(`http://api.scoutsgeared.com/auth/joinunit`,{
                 method: "post",
                 headers: {
                     "Content-Type": "application/json"

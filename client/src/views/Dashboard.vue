@@ -169,7 +169,7 @@ export default {
     },
     methods:{
         getDens: function (){
-            fetch(`${this.$store.getters.base}/dens`)
+            fetch(`http://api.scoutsgeared.com/dens`)
             .then(resp=> resp.json())
             .then(data => this.dens = data.dens)
         },
@@ -192,7 +192,7 @@ export default {
 
             //alert(JSON.stringify(data))
 
-            fetch(`${this.$store.getters.base}/kid/add`,{
+            fetch(`http://api.scoutsgeared.com/kid/add`,{
                 method:"POST",
                 headers:{
                     "Content-Type": "application/json"
@@ -233,7 +233,7 @@ export default {
             this.success = false;
         },
         getScouts: function(){
-            fetch(`${this.$store.getters.base}/kid/${this.parent._id}`)
+            fetch(`http://api.scoutsgeared.com/kid/${this.parent._id}`)
             .then(resp =>{
                 if(!resp.ok){
                     this.errorMessage = `Error looking up children`;
