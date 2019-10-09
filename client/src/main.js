@@ -14,7 +14,7 @@ import Navbar from './components/Navbar'
 Vue.use(Vuex);
 
 Vue.config.productionTip = false
-VueResource.options.root = "http://api.scoutsgeared.com"
+//VueResource.options.root = "http://api.scoutsgeared.com"
 Vue.http.options.root = "http://api.scoutsgeared.com"
 
 new Vue({
