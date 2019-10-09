@@ -4,6 +4,10 @@ const dotenv = require("dotenv");
 var serveStatic = require('serve-static');
 app = express();
 app.use(serveStatic(__dirname + "/dist"));
+const history = require("connect-history-api-fallback");
+
+
+app.use(history());
 
 var hostname = 'scoutsgeared.com';
 
