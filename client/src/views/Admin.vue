@@ -195,7 +195,7 @@ export default {
             })
         },
         editScout: function(id){
-            this.$router.push(`http://api.scoutsgeared.com/scout/edit?id=${id}`);
+            this.$router.push(`/scout/edit?id=${id}`);
         },
         deleteScout: function(id){
             fetch(`http://api.scoutsgeared.com/scout/delete/${id}`,{method:'delete'})
