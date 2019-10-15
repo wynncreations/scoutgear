@@ -8,12 +8,13 @@ import PickUnit from './views/PickUnit.vue'
 import Dashboard from './views/Dashboard.vue'
 import Admin from './views/Admin.vue'
 import EditScout from './views/EditScout.vue'
+import Store from './views/Store.vue'
 
 Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
+  //base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
@@ -46,7 +47,7 @@ const router = new Router({
       name: 'Dashboard',
       component: Dashboard,
       meta:{
-        requiresAuth: true
+        requiresLoggedIn: true
       }
     },
     {
@@ -64,6 +65,13 @@ const router = new Router({
       meta: {
         requiresAdminAuth: true
       }
+    }, {
+      path: '/store',
+      name: 'store',
+      component: Store,
+      meta: {
+        //requiresRegistration: true
+      }
     }
   ]
 })
@@ -71,6 +79,20 @@ const router = new Router({
 
 router.beforeEach((to,from,next)=>{
   //alert(from.path);
+
+  //Check for login required end points.
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    //alert(store.getters.isLoggedIn);
+    //alert(this.$store.getters.isLoggedIn)
+    if (store.getters.isLoggedIn) {
+
+      next();
+    }
+    next("/login");
+  }
+
+
+
 
   if (to.matched.some(record => record.meta.requiresLoggedOut)) {
 
@@ -92,18 +114,6 @@ router.beforeEach((to,from,next)=>{
     next();
   }
 
-
-
-
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    alert(store.getters.isLoggedIn);
-    //alert(this.$store.getters.isLoggedIn)
-    if (store.getters.isLoggedIn) {
-      
-      next();
-    }
-    next("/login");
-  }
   if (to.matched.some(record => record.meta.requiresAdminAuth)) {
     if (store.getters.isLoggedIn && store.getters.isAdmin) {
       next();

@@ -19,35 +19,34 @@
                     >
                     </v-text-field>
                     <v-text-field
-                        v-model="item.subCategory"
-                        label="Item Sub Category"
-                        required
-                    >
-                    </v-text-field>
-                    <v-text-field
-                        v-model="item.retailPrice"
+                        v-model="item.retail_cost"
                         label="Item Retail Price"
                         required
                     >
                     </v-text-field>
                     <v-text-field
-                        v-model="item.retailURL"
+                        v-model="item.factory_url"
                         label="Item Retail URL"
                         required
                     >
                     </v-text-field>
                     <v-text-field
-                        v-model="item.retailImageURL"
+                        v-model="item.image_url"
                         label="Item Retail Image URL"
                         required
                     >
                     </v-text-field>
                     <v-text-field
-                        v-model="item.shippingCost"
+                        v-model="item.description"
                         label="Item Shipping Cost"
                         required
                     >
                     </v-text-field>
+                    <v-btn
+                        @click="submitItem"
+                    >
+
+                    </v-btn>
                 </v-form>
             </v-card-text>
         </v-card>
@@ -59,6 +58,17 @@
         data(){
             return{
 
+            }
+        },
+        methods:{
+            submitItem: function(){
+                fetch('http://api.scoutsgeared.com/item/add',{
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(item)
+                });
             }
         }
     }

@@ -1,46 +1,13 @@
 <template>
-  <v-container fluid class="secondary main">
-    <v-layout v-if="isLoggedIn" justify-center>
-      <v-flex xs12 md4>
+  <v-container class="secondary main">
+    <v-layout>
+      <v-flex class="white--text text-center">
+        ScoutsGeared is THE premier way to track your unit's fundraising and gear your scouts! 
+
 
       </v-flex>
-      <v-flex xs12 md3>
-        <v-card justify-center>
-          <v-card-title>
-            <span>Welcome</span>  <span> {{ me.firstname }} {{me.lastname}}</span>
-          </v-card-title>
-          <v-card-divider></v-card-divider>
-          <v-card-text>
-
-
-            <span>Position:</span><span xs6> {{ me.position }}</span><br>
-          </v-card-text>
-        </v-card>
-      </v-flex>
-
-      <v-flex v-if="isParent">
-        <v-card v-for="kid in kids" :key="kid.id">
-          <v-card-title>
-
-          </v-card-title>
-          <v-card-divider></v-card-divider>
-          <v-card-text>
-            <span>{{ kid.firstname }} {{ me.lastname }}</span><br>
-
-            <span>Age:</span><span xs6> {{ kid.age }}</span><br>
-          </v-card-text>
-        </v-card>
-      </v-flex>
-
-
 
     </v-layout>
-    <v-layout v-if="!isLoggedIn">
-      <v-flex>
-        <span class="white--text">Register now to get started!</span>
-      </v-flex>
-    </v-layout>
-
   </v-container>
 </template>
 
