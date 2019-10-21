@@ -12,13 +12,14 @@
                             >
                                 <v-list-item-icon>
                                     <v-icon>
+                                        
                                         mdi-view-comfy
                                     </v-icon>
                                 </v-list-item-icon>
                                 <v-list-item-content>
                                     <v-list-item-title 
 
-                                        link
+                                        
                                         @click="ViewScouts"
                                     >
                                         Scouts
@@ -36,7 +37,7 @@
                                 <v-list-item-content>
                                     <v-list-item-title 
 
-                                        link
+                                       
                                         @click="addItem"
                                     >
                                         Add Item
@@ -169,10 +170,13 @@ export default {
             this.viewScouts = true;
             this.addItems = false;
             this.getScouts();
+            alert(`ViewScouts - ${this.viewScouts} \n addItems - ${this.addItems}`);
+
         },
         addItem: function(){
             this.addItems = true;
             this.viewScouts = false;
+            alert(`ViewScouts - ${this.viewScouts} \n addItems - ${this.addItems}`);
         },
         getScouts: function(){
             

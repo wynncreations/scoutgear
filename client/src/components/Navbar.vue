@@ -11,6 +11,21 @@
         <span class="font-weight-light">.Geared</span>
       </v-toolbar-title>
       </v-btn>
+
+      <v-btn
+        text
+        router
+        to="/store"
+        
+      >
+           <span class="col-md-3"
+        
+      >
+        Store
+
+      </span>
+      </v-btn>
+
       <v-spacer></v-spacer>
       <v-btn
         v-if="!checkLogin"

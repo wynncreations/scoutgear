@@ -9,7 +9,9 @@ const history = require("connect-history-api-fallback");
 
 app.use(history());
 
-var hostname = 'scoutsgeared.com';
+//var hostname = 'scoutsgeared.com';
+
+var hostname = 'localhost';
 
 dotenv.config();
 var port = process.env.PORT || 5000;
