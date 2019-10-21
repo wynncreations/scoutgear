@@ -25,7 +25,7 @@ export default {
         }
     },
     mounted(){
-        fetch(`/item`)
+        fetch(`http://api.scoutsgeared.com/item`)
         .then(resp =>{
                 if(!resp.ok){
                     this.errorMessage = `Error looking up items`;
