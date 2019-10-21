@@ -19,7 +19,7 @@
                                     <v-list-item-title 
 
                                         link
-                                        @click.native="ViewScouts"
+                                        @click="ViewScouts"
                                     >
                                         Scouts
                                     </v-list-item-title>
@@ -37,7 +37,7 @@
                                     <v-list-item-title 
 
                                         link
-                                        @click.native="addItem"
+                                        @click="addItem"
                                     >
                                         Add Item
                                     </v-list-item-title>
