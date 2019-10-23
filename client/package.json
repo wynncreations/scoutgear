@@ -33,5 +33,5 @@
   },
   "proxy":{
     "target": "http://localhost:8001"
-  }
+  }, "dev": "webpack-dev-server --inline --history-api-fallback --progress --config build/webpack.dev.conf.js"
 }

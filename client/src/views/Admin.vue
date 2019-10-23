@@ -170,13 +170,13 @@ export default {
             this.viewScouts = true;
             this.addItems = false;
             this.getScouts();
-            alert(`ViewScouts - ${this.viewScouts} \n addItems - ${this.addItems}`);
+            //alert(`ViewScouts - ${this.viewScouts} \n addItems - ${this.addItems}`);
 
         },
         addItem: function(){
             this.addItems = true;
             this.viewScouts = false;
-            alert(`ViewScouts - ${this.viewScouts} \n addItems - ${this.addItems}`);
+            //alert(`ViewScouts - ${this.viewScouts} \n addItems - ${this.addItems}`);
         },
         getScouts: function(){
             
