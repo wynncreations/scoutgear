@@ -284,8 +284,8 @@ export default {
                         },
                         body: JSON.stringify(this.category)
                 })
-                .then(this.$router.push('/admin'))
-                ;
+                .then(this.category={});//later add a success message
+                
         }
     },
     computed:{
