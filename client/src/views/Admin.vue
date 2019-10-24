@@ -44,6 +44,24 @@
                                     </v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>
+                            <v-list-item
+                                link
+                            >
+                                <v-list-item-icon>
+                                    <v-icon>
+                                        mdi-view-comfy
+                                    </v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title 
+
+                                       
+                                        @click="addCategory"
+                                    >
+                                        Add Category
+                                    </v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
                         </v-list>
                         
                     </v-navigation-drawer>
@@ -85,12 +103,14 @@
                                             required
                                         >
                                         </v-text-field>
-                                        <v-text-field
+                                        <v-select
+                                            :items="categories"
+                                            label="Category"
                                             v-model="item.category"
-                                            label="Item Category"
+                                            item-text="label"
+                                            item-value="_id"
                                             required
-                                        >
-                                        </v-text-field>
+                                        ></v-select>
                                         <v-text-field
                                             v-model="item.retail_cost"
                                             label="Item Retail Price"
@@ -125,6 +145,29 @@
                                 </v-card-text>
                             </v-card>
                 </v-flex>
+                <v-flex class="col-md-8" dark v-if="ShowAddCategory">
+                    <v-card>
+                        <v-card-title>
+                            Add Store Category
+                        </v-card-title>
+                        <v-card-text>
+                            <v-form class="white" v-model="valid">
+                                <v-text-field
+                                    v-model="category.label"
+                                    label="Category Label"
+                                    required
+                                >
+                                </v-text-field>
+                                <v-btn
+                                    @click="submitCategory"
+                                    class="primary"
+                                >
+                                    Save
+                                </v-btn>
+                            </v-form>
+                        </v-card-text>
+                    </v-card>
+                </v-flex>
             </v-layout>
         </v-container>
     </v-app>
@@ -137,7 +180,10 @@ export default {
         return {
             parent: {},
             item: {},
+            category: {},//category we are trying to add
+            categories: [],//These are the categories loaded in from data for dropdowns
             viewScouts: false,
+            addCategories: false,
             addItems:false,
             error: false,
             errorMessage: '',
@@ -169,14 +215,27 @@ export default {
         ViewScouts:function(){
             this.viewScouts = true;
             this.addItems = false;
+            this.addCategories = false;
             this.getScouts();
             //alert(`ViewScouts - ${this.viewScouts} \n addItems - ${this.addItems}`);
 
         },
-        addItem: function(){
+        addCategory: function(){
+            this.viewScouts = false;
+            this.addItems = false;
+            this.addCategories = true;
+        },
+        addItem: function(){//show the add item form
             this.addItems = true;
             this.viewScouts = false;
+            this.addCategories = false;
             //alert(`ViewScouts - ${this.viewScouts} \n addItems - ${this.addItems}`);
+
+            //get categories for the selection box
+            fetch('http://api.scoutsgeared.com/category/')
+            .then(resp=>resp.json())
+            .then(data=>this.categories=data.categories);
+
         },
         getScouts: function(){
             
@@ -216,7 +275,18 @@ export default {
                         },
                         body: JSON.stringify(this.item)
                 });
-            }
+        },
+        submitCategory: function(){
+                fetch('http://api.scoutsgeared.com/category/add',{
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(this.category)
+                })
+                .then(this.$router.push('/admin'))
+                ;
+        }
     },
     computed:{
         ShowScouts: function (){
@@ -224,6 +294,9 @@ export default {
         },
         ShowAddItems: function(){
             return this.addItems;
+        },
+        ShowAddCategory: function (){
+            return this.addCategories;
         }
     },
     watch: {
@@ -233,6 +306,9 @@ export default {
     },
     components:{
         //AddItem
+    },
+    mounted(){
+
     }
 
 }
