@@ -9,6 +9,7 @@
     "start": "node ../server/app.js"
   },
   "dependencies": {
+    "connect-history-api-fallback": "^1.6.0",
     "core-js": "^2.6.5",
     "js-cookie": "^2.2.0",
     "material-design-icons-iconfont": "^5.0.1",
@@ -31,7 +32,8 @@
     "vue-template-compiler": "^2.6.10",
     "vuetify-loader": "^1.2.2"
   },
-  "proxy":{
+  "proxy": {
     "target": "http://localhost:8001"
-  }, "dev": "webpack-dev-server --inline --history-api-fallback --progress --config build/webpack.dev.conf.js"
+  },
+  "dev": "webpack-dev-server --inline --history-api-fallback --progress --config build/webpack.dev.conf.js"
 }
