@@ -349,6 +349,7 @@ export default {
                 
         },
         submitCampaign: function(){
+                this.campaign.unit_ID = this.$store.getters.unit._id;
                 fetch('http://api.scoutsgeared.com/campaign/add',{
                         method: "POST",
                         headers: {
