@@ -62,6 +62,24 @@
                                     </v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>
+                            <v-list-item
+                                link
+                            >
+                                <v-list-item-icon>
+                                    <v-icon>
+                                        mdi-view-comfy
+                                    </v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title 
+
+                                       
+                                        @click="addCampaign"
+                                    >
+                                        Add Campaign
+                                    </v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
                         </v-list>
                         
                     </v-navigation-drawer>
@@ -168,6 +186,34 @@
                         </v-card-text>
                     </v-card>
                 </v-flex>
+                <v-flex class="col-md-8" dark v-if="ShowAddCampaign">
+                    <v-card>
+                        <v-card-title>
+                            Add Campaign
+                        </v-card-title>
+                        <v-card-text>
+                            <v-form class="white" v-model="valid">
+                                <v-text-field
+                                    v-model="campaign.label"
+                                    label="Category Label"
+                                    required
+                                >
+                                </v-text-field>
+                                <v-text-field
+                                        v-model="campaign.startdate"
+                                        label="Start Date(MM/DD/YYYY)"
+                                        prepend-icon="event"
+                                ></v-text-field>
+                                <v-btn
+                                    @click="submitCampaign"
+                                    class="primary"
+                                >
+                                    Save
+                                </v-btn>
+                            </v-form>
+                        </v-card-text>
+                    </v-card>
+                </v-flex>
             </v-layout>
         </v-container>
     </v-app>
@@ -177,12 +223,18 @@
 export default {
     name: 'Admin',
     data(){
-        return {
+        return {      
+            date: new Date().toISOString().substr(0, 10),
+            menu: false,
+            modal: false,
+            menu2: false,
             parent: {},
+            campaign: {},
             item: {},
             category: {},//category we are trying to add
             categories: [],//These are the categories loaded in from data for dropdowns
             viewScouts: false,
+            addCampaigns: false,
             addCategories: false,
             addItems:false,
             error: false,
@@ -217,6 +269,7 @@ export default {
             this.addItems = false;
             this.addCategories = false;
             this.getScouts();
+            this.addCampaigns = false;
             //alert(`ViewScouts - ${this.viewScouts} \n addItems - ${this.addItems}`);
 
         },
@@ -224,11 +277,19 @@ export default {
             this.viewScouts = false;
             this.addItems = false;
             this.addCategories = true;
+            this.addCampaigns = false;
+        },
+        addCampaign: function(){
+            this.viewScouts = false;
+            this.addItems = false;
+            this.addCategories = false;
+            this.addCampaigns = true;
         },
         addItem: function(){//show the add item form
             this.addItems = true;
             this.viewScouts = false;
             this.addCategories = false;
+            this.addCampaigns = false;
             //alert(`ViewScouts - ${this.viewScouts} \n addItems - ${this.addItems}`);
 
             //get categories for the selection box
@@ -286,6 +347,17 @@ export default {
                 })
                 .then(this.category={});//later add a success message
                 
+        },
+        submitCampaign: function(){
+                fetch('http://api.scoutsgeared.com/campaign/add',{
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(this.campaign)
+                })
+                .then(this.campaign={});//later add a success message
+                
         }
     },
     computed:{
@@ -297,6 +369,9 @@ export default {
         },
         ShowAddCategory: function (){
             return this.addCategories;
+        },
+        ShowAddCampaign: function (){
+            return this.addCampaigns;
         }
     },
     watch: {
