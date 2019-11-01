@@ -293,7 +293,7 @@ export default {
             //alert(`ViewScouts - ${this.viewScouts} \n addItems - ${this.addItems}`);
 
             //get categories for the selection box
-            fetch('http://api.scoutsgeared.com/category/')
+            fetch('http://api.scoutsgeared.com/category/'+this.$store.getters.unit._id)
             .then(resp=>resp.json())
             .then(data=>this.categories=data.categories);
 
@@ -329,6 +329,7 @@ export default {
             this.$router.push('/admin');//not firing?
         },
         submitItem: function(){
+            this.item.unit_id = this.$store.getters.unit._id;
                 fetch('http://api.scoutsgeared.com/item/add',{
                         method: "POST",
                         headers: {
@@ -338,6 +339,7 @@ export default {
                 });
         },
         submitCategory: function(){
+                this.category.unit_id = this.$store.getters.unit._id;
                 fetch('http://api.scoutsgeared.com/category/add',{
                         method: "POST",
                         headers: {
