@@ -31,6 +31,25 @@
                             >
                                 <v-list-item-icon>
                                     <v-icon>
+                                        
+                                        mdi-view-comfy
+                                    </v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title 
+
+                                        
+                                        @click="ViewCampaigns"
+                                    >
+                                        Campaigns
+                                    </v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item
+                                link
+                            >
+                                <v-list-item-icon>
+                                    <v-icon>
                                         mdi-view-comfy
                                     </v-icon>
                                 </v-list-item-icon>
@@ -86,7 +105,7 @@
                 </v-flex>
                 
                 <v-flex class="col-md-8" v-if="ShowScouts">
-                    <v-data-table dark class="primary"
+                    <v-data-table  
                         :headers="headers"     
                         :items="scouts"
                         :items-per-page="15"
@@ -108,6 +127,18 @@
 
                     </v-data-table>
                 </v-flex>
+
+
+
+                <v-flex class="col-md-8" v-if="ShowCampaigns">
+                    <show-campaigns
+                        v-bind:unit-id="this.$store.getters.unit._id">
+                    </show-campaigns>
+                </v-flex>
+
+
+
+
                 <v-flex class="col-md-8" dark v-if="ShowAddItems">
                             <v-card>
                                 <v-card-title>
@@ -219,7 +250,7 @@
     </v-app>
 </template>
 <script>
-//import AddItem from '../components/AddItem'
+import showCampaigns from '../components/showCampaigns'
 export default {
     name: 'Admin',
     data(){
@@ -234,6 +265,7 @@ export default {
             category: {},//category we are trying to add
             categories: [],//These are the categories loaded in from data for dropdowns
             viewScouts: false,
+            viewCampaigns: false,
             addCampaigns: false,
             addCategories: false,
             addItems:false,
@@ -270,6 +302,7 @@ export default {
             this.addCategories = false;
             this.getScouts();
             this.addCampaigns = false;
+            this.viewCampaigns = false;
             //alert(`ViewScouts - ${this.viewScouts} \n addItems - ${this.addItems}`);
 
         },
@@ -278,18 +311,21 @@ export default {
             this.addItems = false;
             this.addCategories = true;
             this.addCampaigns = false;
+            this.viewCampaigns = false;
         },
         addCampaign: function(){
             this.viewScouts = false;
             this.addItems = false;
             this.addCategories = false;
             this.addCampaigns = true;
+            this.viewCampaigns = false;
         },
         addItem: function(){//show the add item form
             this.addItems = true;
             this.viewScouts = false;
             this.addCategories = false;
             this.addCampaigns = false;
+            this.viewCampaigns = false;
             //alert(`ViewScouts - ${this.viewScouts} \n addItems - ${this.addItems}`);
 
             //get categories for the selection box
@@ -297,6 +333,13 @@ export default {
             .then(resp=>resp.json())
             .then(data=>this.categories=data.categories);
 
+        },
+        ViewCampaigns: function(){
+            this.addItems = false;
+            this.viewScouts = false;
+            this.addCategories = false;
+            this.addCampaigns = false;
+            this.viewCampaigns = true;
         },
         getScouts: function(){
             
@@ -376,6 +419,9 @@ export default {
         },
         ShowAddCampaign: function (){
             return this.addCampaigns;
+        },
+        ShowCampaigns: function (){
+            return this.viewCampaigns;
         }
     },
     watch: {
@@ -384,7 +430,7 @@ export default {
       },
     },
     components:{
-        //AddItem
+        'show-campaigns':showCampaigns
     },
     mounted(){
 

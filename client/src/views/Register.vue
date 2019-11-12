@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="secondary main">
+  <v-container fluid class="main">
     
       <v-container >
         <v-layout justify-center>  

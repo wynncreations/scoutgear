@@ -1,7 +1,7 @@
 <template>
-  <v-container class="secondary main">
+  <v-container class="main">
     <v-layout>
-      <v-flex class="white--text text-center">
+      <v-flex class="black--text text-center">
         ScoutsGeared is THE premier way to track your unit's fundraising and gear your scouts! 
 
 

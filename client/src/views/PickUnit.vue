@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class="main blue ">
+    <v-container fluid class="main">
         <v-layout row class="justify-center">
             <v-flex xs3 md4>
                 <v-card>

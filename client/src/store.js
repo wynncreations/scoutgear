@@ -19,6 +19,7 @@ export default new Vuex.Store({
         firstLook: false,
         successMessage: "",
         kids: []
+
     },
     plugins: [
         createPersistedState({

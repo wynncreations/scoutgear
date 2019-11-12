@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class="secondary main"> 
+    <v-container fluid class="white main"> 
         <v-layout >
             <v-flex>
                 <v-navigation-drawer
