@@ -62,6 +62,7 @@
         },
         methods:{
             submitItem: function(){
+                this.item.unit_ID = this.$store.getters.unit._id
                 fetch('http://api.scoutsgeared.com/item/add',{
                         method: "POST",
                         headers: {

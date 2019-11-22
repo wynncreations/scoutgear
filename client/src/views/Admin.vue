@@ -1,6 +1,6 @@
 <template>
     <v-app secondary class="secondary" app>
-        <v-container fluid>
+        <v-container>
             <v-layout>
                 <v-flex class="col-md-2">
                     <v-navigation-drawer dark class="primary">

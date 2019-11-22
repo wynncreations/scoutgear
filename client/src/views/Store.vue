@@ -1,19 +1,22 @@
 <template>
-    <v-layout>
-        <v-flex
-            v-for="item in items" v-bind:key="item._id"
-        >
-    
-         <Item 
-                v-bind:iname="item.name"
-                v-bind:image_url="item.image_url"
-                v-bind:description="item.description"
-                v-bind:factory_url="item.factory_url"
-                v-bind:retail_cost="item.retail_cost"
-        ></Item>
-           
-        </v-flex>
-    </v-layout>
+    <v-container>
+        <v-row no-gutter class="primary lighten-4">
+            <v-col
+                md="3"
+                sm="12"       
+                v-for="item in items"
+                :key="item._id"
+            >
+                <Item
+                    v-bind:iname="item.name"
+                    v-bind:image_url="item.image_url"
+                    v-bind:description="item.description"
+                    v-bind:factory_url="item.factory_url"
+                    v-bind:retail_cost="item.retail_cost"
+                ></Item>    
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
@@ -25,7 +28,7 @@ export default {
         }
     },
     mounted(){
-        fetch(`http://api.scoutsgeared.com/item`)
+        fetch(`http://api.scoutsgeared.com/item/unit/${this.$store.getters.unit._id}`)
         .then(resp =>{
                 if(!resp.ok){
                     this.errorMessage = `Error looking up items`;
@@ -41,6 +44,7 @@ export default {
             this.errorMessage = `${err}`;
             this.error = true;
         });
+        
     },
     components:{
         Item
