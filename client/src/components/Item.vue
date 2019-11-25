@@ -23,14 +23,15 @@
                 <v-form>
                     <v-select
                         :items="scouts"
-                        label="Category"
-                        v-model="item.firstname"
-                        item-text="Name"
+                        label="Scouts"
+                        v-model="scout"
+                        item-text="firstname"
                         item-value="_id"
                         required
-                    ></v-select>
+                    ></v-select> 
+                    <v-btn @click="applyScoutFund()">Apply Scout Fund <v-icon>mdi-cash-usd</v-icon></v-btn>
                 </v-form>
-                <v-btn>Request <v-icon>mdi-cash-usd</v-icon></v-btn>
+                
                 
             </v-card-actions>
         </v-card-text>
@@ -41,17 +42,36 @@ export default {
     data(){
         return{
             name:'Item',
-            scouts: []
+            scouts:[]
         }
     },props:{
         iname: String,
         image_url:String,
         description: String,
         factory_url: String,
-        retail_cost: Number
+        retail_cost: Number,
+        item_id: String,
+        parent_id:String
     },
     mounted(){
-        this.scouts = this.$store.getters.kids;
+        this.getScouts();
+    },
+    methods:{
+        applyScoutFund: function (){
+           //confirmation prompt
+           prompt(`Apply scoutfund to ${this.iname} for ${this.scout}?`,true) 
+           //call backend to deduct scout fund and send email to scout parent and unit admin and create "store_event" action
+
+           //
+        },
+        getScouts: function(){
+            fetch(`http://api.scoutsgeared.com/kid/scout/parent/${this.parent_id}`)
+                .then(resp=>resp.json())
+                .then(data=> {
+                    this.scouts = data.scout
+                })
+                .catch();
+        }
     }
 }
 </script>

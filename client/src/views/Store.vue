@@ -13,6 +13,8 @@
                     v-bind:description="item.description"
                     v-bind:factory_url="item.factory_url"
                     v-bind:retail_cost="item.retail_cost"
+                    v-bind:item_id="item._id"
+                    v-bind:parent_id="parent_id"
                 ></Item>    
             </v-col>
         </v-row>
@@ -24,7 +26,8 @@ import Item from '../components/Item'
 export default {
     data(){
         return{
-            items:[]
+            items:[],
+            parent_id: ''
         }
     },
     mounted(){
@@ -44,10 +47,15 @@ export default {
             this.errorMessage = `${err}`;
             this.error = true;
         });
-        
+        console.log(this.$store.getters.me._id);
+        this.parent_id = this.$store.getters.me._id
+        console.log(this.parent_id)
     },
     components:{
         Item
+    },
+    methods:{
+
     }
 }
 </script>
