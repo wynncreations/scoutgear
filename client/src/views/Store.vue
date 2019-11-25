@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-row no-gutter class="primary lighten-4">
+        <v-row no-gutter >
             <v-col
                 md="3"
                 sm="12"       

@@ -13,12 +13,13 @@
       </v-btn>
 
       <v-btn
+        v-if="checkLogin"
         text
         router
         to="/store"
         
       >
-           <span class="col-md-3"
+           <span class="col-md-3 text-align-center" 
         
       >
         Store

@@ -16,7 +16,23 @@
 
             </v-img>
             {{description}}
+            <br><br>
             Retail Cost - ${{retail_cost}}
+            <hr>
+            <v-card-actions>
+                <v-form>
+                    <v-select
+                        :items="scouts"
+                        label="Category"
+                        v-model="item.firstname"
+                        item-text="Name"
+                        item-value="_id"
+                        required
+                    ></v-select>
+                </v-form>
+                <v-btn>Request <v-icon>mdi-cash-usd</v-icon></v-btn>
+                
+            </v-card-actions>
         </v-card-text>
     </v-card>
 </template>
@@ -24,7 +40,8 @@
 export default {
     data(){
         return{
-            name:'Item'
+            name:'Item',
+            scouts: []
         }
     },props:{
         iname: String,
@@ -32,6 +49,9 @@ export default {
         description: String,
         factory_url: String,
         retail_cost: Number
+    },
+    mounted(){
+        this.scouts = this.$store.getters.kids;
     }
 }
 </script>

@@ -110,10 +110,18 @@ export default new Vuex.Store({
                         if (resp.me.unit_ID !== "000000000000000000000000") {
                             //alert(resp.me.unit_ID);
                             this.dispatch("getUpdatedUnit", resp.me.unit_ID);
-                        }
-                        
-                        resolve(resp);
+                        }                        
                     })
+                    .then(()=>{
+                        fetch(`http://api.scoutsgeared.com/kid/scout/parent/${this.state.me._id}`)
+                        .then(resp=>resp.json())
+                        .then(data=>this.state.kids = data.scouts)
+                        .then(resp => resolve(resp))
+                        .catch(err => {
+                            reject(err);
+                        });
+                    }
+                    )
                     .catch(err => {
                         commit("authError");
                         localStorage.removeItem("token");
