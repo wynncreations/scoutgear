@@ -17,9 +17,9 @@
         text
         router
         to="/store"
-        
+        class="text-center"
       >
-           <span class="col-md-3 text-align-center" 
+           <span class="col-md-3 text-center text-align-center" 
         
       >
         Store
