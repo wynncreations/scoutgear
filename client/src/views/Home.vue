@@ -1,6 +1,6 @@
 <template>
-  <v-container no-gutter class="main">
-    <v-row no-gutter>
+  <v-container no-gutter fluid class="main fill-height">
+    <v-row no-gutter class="align-center centerContent">
       <v-col 
         cols="12"
         sm="12"
@@ -14,7 +14,7 @@
         cols="12"
         sm="12"
         md="3"
-        class="primary lighten-3"
+        
       >
         Create fundraising campaigns, see profit from those campaigns and what each scout has contributed and earned!
       </v-col>
@@ -64,10 +64,15 @@ export default {
 
 <style>
   .main{
-    min-height:100%
+    min-height:100%;
+    background-image:url('../assets/background.jpg');
+    background-size:cover;
   }
   .registerCard{
     min-height:50%
+  }
+  .centerContent{
+    background-color: white;
   }
 
 </style>
