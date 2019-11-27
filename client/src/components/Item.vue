@@ -3,6 +3,14 @@
 
     >
         <v-card-title>
+            <v-alert
+                v-if="message_alert"
+                icon="mdi-cash"
+                dismissible
+                type="success"
+            >
+                {{message}}
+            </v-alert>
             {{iname}}
         </v-card-title>
 
@@ -90,7 +98,9 @@ export default {
             name:'Item',
             scouts:[],
             confirmation: false,
-            thisScout:{}
+            thisScout:{},
+            message_alert:false,
+            message:''
         }
     },props:{
         iname: String,
@@ -123,16 +133,39 @@ export default {
                     parent_email:this.$store.getters.me.username
                 }
 
-                //alert(JSON.stringify(updateData));
-                fetch(`http://api.scoutsgeared.com/store/purchase/`,{
-                method:'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(updateData) })
+                fetch(`http://api.scoutsgeared.com/scout/${this.scout}`)
                 .then(resp=>resp.json())
-                .then(resp=>this.message=resp.message)
-                .catch();
+                .then(resp=>this.thisScout=resp.scout)
+                .then(()=>{
+                    if(this.thisScout.scoutFund>=this.retail_cost){
+                        fetch(`http://api.scoutsgeared.com/store/purchase/`,{
+                            method:'POST',
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(updateData) })
+                        .then(resp=>resp.json())
+                        .then(()=>{
+                            this.message=`Successfully reserved, you should receive an email with additional information.`;
+                            this.message_alert=true;
+                            this.scout=''
+                        })
+                        .catch()
+                    }else{
+                        alert(`Sorry! ${this.thisScout.firstname} ${this.thisScout.lastname} only has $${this.thisScout.scoutFund} in their Scout Fund and this item requires at least $${this.retail_cost}`)
+                        this.scout=''
+                    }
+
+                });
+
+
+
+
+
+
+
+                //alert(JSON.stringify(updateData));
+
                 
 
 
