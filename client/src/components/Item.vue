@@ -150,7 +150,7 @@ export default {
             fetch(`http://api.scoutsgeared.com/kid/scout/parent/${this.parent_id}`)
                 .then(resp=>resp.json())
                 .then(data=> {
-                    this.scouts = data.scout
+                    this.scouts = data.scouts
                 })
                 .catch();
         }
