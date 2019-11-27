@@ -123,7 +123,7 @@ export default {
                     parent_email:this.$store.getters.me.username
                 }
 
-
+                //alert(JSON.stringify(updateData));
                 fetch(`http://api.scoutsgeared.com/store/purchase/`,{
                 method:'POST',
                 headers: {
