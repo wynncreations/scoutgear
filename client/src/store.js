@@ -112,7 +112,7 @@ export default new Vuex.Store({
                             this.dispatch("getUpdatedUnit", resp.me.unit_ID);
                         }                        
                     })
-                    
+                    .then(resolve())
                     .catch(err => {
                         commit("authError");
                         localStorage.removeItem("token");
