@@ -1,5 +1,5 @@
 <template> 
-    <v-app-bar dark class="primary">      
+    <v-app-bar dark class="primary">   
       <v-btn
         text
         router
